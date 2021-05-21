@@ -1,59 +1,186 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Healthy Meal Planner!
 
-Welcome USER_NAME,
+![Healthy Meal Planner Website](/assets/images/website-mockup.jpeg "Healthy Meal Planner Website")
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use.
+[Demo of Website](#).
 
-## Gitpod Reminders
+Healthy Meal Planner is a application to aid diet planning. It is based on the guidelines for a 1800 calorie intake per day of [Live Health Online](https://livehealthonline.com/wp-content/uploads/2018/05/lho-wmp-1800-calorie-meal-plan.pdf). 
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+The **primary goal** of this application is to help the user plan a balanced diet.
 
-`python3 -m http.server`
+Other user goals:
 
-A blue button should appear to click: _Make Public_,
+- Be able to save meal options.
+- Be able to plan meals for the entire week.
+- Receive groceries list based on selected meals.
 
-Another blue button should appear to click: _Open Browser_.
+## UX
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+### User stories
 
-A blue button should appear to click: _Make Public_,
+1. As a new visitor to the website, I want to understand the main concept of the plan.
 
-Another blue button should appear to click: _Open Browser_.
+2. As a new visitor to the website, I want to find instructions on how to use the application.
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+3. As a new visitor to the website, I want to register with the application.
 
-To log into the Heroku toolbelt CLI:
+4. As a user, I want to create meal options following the recommendation.
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+5. As a user, I want to create a meal plan for the week.
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidently make it public then you can create a new one with _Regenerate API Key_.
+6. As a user, I want to be able to copy, update or delete the meal options and plan.
 
-## Updates Since The Instructional Video
+7. As the application administrator, I want to be able to update the servings portions.
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+   
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+### Strategy 
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+As the main user goal is to easily build a diet plan following the health guidelines, the product is a simple web application that allow the user to choose based on its own personal taste between the serving options available. The application also generates a groceries list based on the planned meals for the week. 
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+### Scope
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+The main features in scope is the meal planner with CRUD (Create, Read, Update, Delete) interactions, the user authentication and the groceries list generation.
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+The features available for the application administrator also includes serving portions and daily intake CRUD.
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+A how to use static front-end section will also be provided to improve user experience.
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+Future scope:
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+- User weight tracker
 
----
+- Admin able to manage daily intake recommendation options
 
-Happy coding!
+- Automated Newsletter for Tips and Recipes
+
+  
+
+### Structure
+
+The website will have a responsive grid system with the use of selection for the forms and cards for the documents (saved meals, plan), simple and light in design.
+
+The help section will be a single continuous page that opens on a new tab with a Scrollspy to aid navigation.
+
+#### Database Structure
+
+| Collection Name              | Document's Keys                                              |
+| ---------------------------- | ------------------------------------------------------------ |
+| users                        | username<br />password<br />admin                            |
+| daily_intake* (admin only)   | daily_intake_name<br />breakfast_protein<br />breakfast_grain<br />breakfast_fruit<br />breakfast_fat<br />lunch_protein<br />lunch_grain<br />lunch_vegetables<br />lunch_fruit<br />lunch_fat<br />dinner_protein<br />dinner_grain<br />dinner_vegetables<br />dinner_fat<br />snack_protein<br />snack_carbohydrate |
+| serving_options (admin only) | category<br />ingredient<br />quantity<br />engineering_unit |
+| built_meals                  | meal_name<br />created_by<br />servings_selected             |
+| build_plans                  | plan_start_date<br />plan_end_date<br />create_by<br />meals_selected |
+
+*This collection is part of the future scope.
+
+### Skeleton
+
+- [Layout](wireframes/healthy-meal-planner-skeleton.jpg)
+
+### Surface
+
+#### Colour
+
+The website will use grey background colours and the following accents for each serving category.
+
+- Protein / Carbohydrate: red
+- Grain: yellow
+- Fat: orange
+- Fruit: blue
+- Vegetables: green
+
+ 
+
+#### Typography
+
+The default typography of Materialize will be used throughout.
+
+
+
+## Features
+
+
+
+### Existing Features
+
+
+
+### Features left to implement
+
+
+
+## Technologies used
+
+### Languages
+
+- HTML | HTML5
+- CSS | CSS3
+- JavaScript | JS ES6
+- Python | Python3
+
+### Libraries, Frameworks & Programs
+
+- [Gitpod](https://gitpod.io/workspaces/):
+  The developer used Gitpod as the IDE for building the website.
+
+- <!--[Fonts Awesome v5.15](https://fontawesome.com/):-->
+  <!--Used for the Settings (cog) and restart icons.-->
+
+- [Typora](https://typora.io/#):
+  Used for Markdown editing of README and TESTING files.
+
+- [Clip Studio Paint](https://www.clipstudio.net/en/):
+  Used for images development and editing.
+
+- <!--[AutoPrefixer](https://autoprefixer.github.io):-->
+  <!--Used on CSS to ensure functionality across browsers.-->
+
+- <!--[jQuery API](https://api.jquery.com/):-->
+  <!--Used during coding for element selection and promises.-->
+
+- <!--[Jasmine](https://jasmine.github.io/):-->
+  <!--Used for automated testing of function.-->
+
+## Testing
+
+Refer to [TESTING.md](TESTING.md) file for testing details.
+
+## Deployment
+
+This project was developed using the Gitpod IDE, committed to git and pushed to GitHub.
+
+### Deploy to Heroku from GitHub Repository:
+
+- 
+
+### Run the project locally:
+
+- 
+
+### Download project to local IDE:
+
+- 
+
+## Credit
+
+### Content
+
+This web application was based on the guidelines published by [Live Health Online](https://livehealthonline.com/wp-content/uploads/2018/05/lho-wmp-1800-calorie-meal-plan.pdf).
+
+### Media
+
+
+
+### Code
+
+
+
+### Acknowledgment
+
+
+
+## Disclaimer
+
+This project purpose is only educational.
