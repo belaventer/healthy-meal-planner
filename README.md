@@ -153,16 +153,29 @@ This project was developed using the Gitpod IDE, committed to git and pushed to 
 
 ### Deploy to Heroku from GitHub Repository:
 
-- 
+This project was developed using the Gitpod IDE, committed to git and pushed to GitHub.
 
-### Run the project locally:
+### Deploy to Heroku from GitHub Repository:
 
-- 
+- Log in to [Heroku](https://id.heroku.com/login).
+- Create a new application with unique name and setting the region.
+- Under Deploy tab, select GitHub as the Deployment Method.
+- Search for the GitHub repository and click Connect.
+- Under Settings tab, click "Reveal Config Vars"
+- Include the env.py private variables and values:
+  - IP: 0.0.0.0
+  - PORT: 5000
+  - SECRET_KEY: custom secret key used for sessions security
+  - MONGO_URI: URI from the MongoDB Cluster, selecting CONNECT > Connect to your Application and replacing with correct password and database name
+  - MONGO_DB: database name in use
+
+- Under Deploy tab, choose the branch and click Enable Automatic Deploys in the Automatic Deploys section.
+
+Note: ensure you have a Procfile and requirements.txt indicating language and packs required to run the application on your repository.
 
 ### Download project to local IDE:
 
 - 
-
 ## Credit
 
 ### Content
