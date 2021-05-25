@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+nav .brand-logo {
+    padding-left: 18px;
+}
+
+.small-text {
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.logo-image {
+    margin-top: 20px;
+}
+/* Media queries for responsiviness */
+/* Desktop screens */
+@media only screen and (max-width: 1200px) {
+	html {
+		font-size: 14px;
+	}
+}
+
+/* Tablet screens */
+@media only screen and (max-width: 768px) {
+	html {
+		font-size: 12px;
+    }
+    
+    /* Used to null Materialize styling */
+    nav .brand-logo{
+        left: 0;
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+
+/* Mobile and tablet screens */
+@media only screen and (max-width: 450px) {
+	html {
+		font-size: 11px;
+    }
+}

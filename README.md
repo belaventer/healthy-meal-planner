@@ -125,8 +125,8 @@ The default typography of Materialize will be used throughout.
 - [Gitpod](https://gitpod.io/workspaces/):
   The developer used Gitpod as the IDE for building the website.
 
-- <!--[Fonts Awesome v5.15](https://fontawesome.com/):-->
-  <!--Used for the Settings (cog) and restart icons.-->
+- [Fonts Awesome v5.15](https://fontawesome.com/):
+  Used for the menu icon.
 
 - [Typora](https://typora.io/#):
   Used for Markdown editing of README and TESTING files.
@@ -137,11 +137,9 @@ The default typography of Materialize will be used throughout.
 - <!--[AutoPrefixer](https://autoprefixer.github.io):-->
   <!--Used on CSS to ensure functionality across browsers.-->
 
-- <!--[jQuery API](https://api.jquery.com/):-->
-  <!--Used during coding for element selection and promises.-->
+- [jQuery API](https://api.jquery.com/):
+  Used with Materialize for components initialization.
 
-- <!--[Jasmine](https://jasmine.github.io/):-->
-  <!--Used for automated testing of function.-->
 
 ## Testing
 
@@ -192,7 +190,7 @@ This web application was based on the guidelines published by [Live Health Onlin
 
 ### Acknowledgment
 
-
+Favicon added as per ["Add A Favicon to A Website in HTML | Learn HTML and CSS | HTML Tutorial | HTML for Beginners"](https://www.youtube.com/watch?v=kEf1xSwX5D8) by Dani Krossing
 
 ## Disclaimer
 
