@@ -18,12 +18,12 @@
 <body class="blue-grey lighten-5">
 
     <nav>
-        <div class="nav-wrapper blue-grey lighten-2">
+        <div class="nav-wrapper blue-grey lighten-1">
         <a href="{{ url_for('home') }}" class="brand-logo">Healthy Meal Planner</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="#">Log In | Register</a></li>
+            <li><a href="{{ url_for('login') }}">Log In | Register</a></li>
             <li><a href="#">Profile</a></li>
             <li><a href="#">Build Meal</a></li>
             <li><a href="#">Plan Week</a></li>
@@ -33,10 +33,10 @@
         </div>
     </nav>
 
-    <ul class="sidenav center-align blue-grey-text text-lighten-2" id="mobile-demo">
+    <ul class="sidenav center-align blue-grey-text text-lighten-1" id="mobile-demo">
         <h5>Healthy Meal Planner</h5>
         <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="#">Log In | Register</a></li>
+        <li><a href="{{ url_for('login') }}">Log In | Register</a></li>
         <li><a href="#">Profile</a></li>
         <li><a href="#">Build Meal</a></li>
         <li><a href="#">Plan Week</a></li>
@@ -49,7 +49,7 @@
         {% endblock %}
     </main>
 
-    <footer class="footer-copyright blue-grey lighten-2 white-text small-text">
+    <footer class="footer-copyright blue-grey lighten-1 white-text small-text">
         <p class="container">This content is provided for informational purposes only and is not a substitute for professional medical advice, diagnosis or treatment.
         You should always consult your doctor or other qualified health provider if you have questions or concerns.</p>
     </footer>
