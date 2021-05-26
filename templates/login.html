@@ -2,14 +2,28 @@
 {% block content %}
 
 <div class="row">
+    <!-- Log in form -->
     <div class="col s12 m5">
         <div class="row center-align">
             <h4 class="col s12 section blue-grey-text text-darken-1">Log In</h4>
         </div>
 
+        <!-- Flash messages with category of login -->
+        <!-- Use of category use found in https://blog.teclado.com/flashing-messages-with-flask/ -->
         <div class="row center-align">
-            <!-- Log in form -->
-            <form class="col s12 section" method="POST" action="">
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages if category == "login" %}
+                        <div class="col s12 section red-text text-accent-4">
+                                <p>{{ message }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <div class="row center-align">
+            <form class="col s12 section" method="POST" action="login">
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fas fa-user-alt prefix blue-grey-text text-darken-1"></i>
@@ -35,6 +49,7 @@
         </div>
     </div>
 
+    <!-- Register form -->
     <div class="col s12 m5 offset-m1 z-depth-2">
         <div class="row center-align">
             <h5 class="col s12 section blue-grey-text text-darken-1">
@@ -42,10 +57,12 @@
                 Register below! <i class="fas fa-chevron-down"></i>
             </h5>
         </div>
+
+        <!-- Flash messages with category of login -->
         <div class="row center-align">
-            {% with messages = get_flashed_messages() %}
+            {% with messages = get_flashed_messages(with_categories=True) %}
                 {% if messages %}
-                    {% for message in messages %}
+                    {% for category, message in messages if category == "register" %}
                         <div class="col s12 section red-text text-accent-4">
                                 <p>{{ message }}</p>
                         </div>
@@ -53,8 +70,8 @@
                 {% endif %}
             {% endwith %}
         </div>
+        
         <div class="row center-align">
-            <!-- Register form form -->
             <form class="col s12 section" method="POST" action="register">
                 <div class="row">
                     <div class="input-field col s12">
