@@ -79,6 +79,14 @@ def register():
     return render_template("login.html")
 
 
+@app.route("/logout")
+def logout():
+    # remove user from session cookie
+    flash("You have been logged out", "general")
+    session.pop("user")
+    return redirect(url_for("home"))
+
+
 # Call the Flask application. Note: set debug=False before submission
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

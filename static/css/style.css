@@ -6,6 +6,7 @@ body {
 
 main {
     flex: 1 0 auto;
+    padding-top: 2%;
 }
 
 nav .brand-logo {
@@ -20,6 +21,7 @@ nav .brand-logo {
 .logo-image {
     margin-top: 20px;
 }
+
 /* Media queries for responsiviness */
 /* Desktop screens */
 @media only screen and (max-width: 1200px) {

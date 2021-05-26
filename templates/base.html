@@ -28,7 +28,7 @@
                     <li><a href="#">Build Meal</a></li>
                     <li><a href="#">Plan Week</a></li>
                     <li><a href="#">Manage Servings</a></li>
-                    <li><a href="#">Log Out</a></li>
+                    <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                 {% else %}
                     <li><a href="{{ url_for('login') }}">Log In | Register</a></li>
                 {% endif %}
@@ -44,11 +44,22 @@
             <li><a href="#">Build Meal</a></li>
             <li><a href="#">Plan Week</a></li>
             <li><a href="#">Manage Servings</a></li>
-            <li><a href="#">Log Out</a></li>
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
         {% else %}
             <li><a href="{{ url_for('login') }}">Log In | Register</a></li>
         {% endif %}
     </ul>
+
+    <!-- Flash messages with category of general -->
+    <section class="row center-align">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                {% for category, message in messages if category == "general" %}
+                    <h5 class="col s12 section green-text text-darken-3">{{ message }}</h5>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </section>
 
     <main class="container">
         {% block content %}
