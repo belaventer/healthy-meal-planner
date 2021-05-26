@@ -42,10 +42,20 @@
                 Register below! <i class="fas fa-chevron-down"></i>
             </h5>
         </div>
-
+        <div class="row center-align">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="col s12 section red-text text-accent-4">
+                                <p>{{ message }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
         <div class="row center-align">
             <!-- Register form form -->
-            <form class="col s12 section" method="POST" action="">
+            <form class="col s12 section" method="POST" action="register">
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fas fa-user-plus prefix blue-grey-text text-darken-1"></i>
