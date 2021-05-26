@@ -2,7 +2,7 @@
 
 ![Healthy Meal Planner Website](/assets/images/website-mockup.jpeg "Healthy Meal Planner Website")
 
-[Demo of Website](#).
+[Demo of Website](https://healthy-meal-planner.herokuapp.com/).
 
 Healthy Meal Planner is a application to aid diet planning. It is based on the guidelines for a 1800 calorie intake per day of [Live Health Online](https://livehealthonline.com/wp-content/uploads/2018/05/lho-wmp-1800-calorie-meal-plan.pdf). 
 
@@ -67,11 +67,11 @@ The help section will be a single continuous page that opens on a new tab with a
 
 | Collection Name              | Document's Keys                                              |
 | ---------------------------- | ------------------------------------------------------------ |
-| users                        | username<br />password<br />admin                            |
-| daily_intake* (admin only)   | daily_intake_name<br />breakfast_protein<br />breakfast_grain<br />breakfast_fruit<br />breakfast_fat<br />lunch_protein<br />lunch_grain<br />lunch_vegetables<br />lunch_fruit<br />lunch_fat<br />dinner_protein<br />dinner_grain<br />dinner_vegetables<br />dinner_fat<br />snack_protein<br />snack_carbohydrate |
-| serving_options (admin only) | category<br />ingredient<br />quantity<br />engineering_unit |
-| built_meals                  | meal_name<br />created_by<br />servings_selected             |
-| build_plans                  | plan_start_date<br />plan_end_date<br />create_by<br />meals_selected |
+| users                        | username: String<br />password: String (hashed)<br />admin: Boolean |
+| daily_intake* (admin only)   | total_calories: Int32<br />breakfast {<br />    protein: Int32,<br />    grain: Int32,<br />    fruit: Int32,<br />    fat: Int32}<br />lunch{<br />    protein: Int32,<br />    grain: Int32,<br />    vegetables: Int32,<br />    fruit: Int32,<br />    fat: Int32}<br />dinner{<br />    protein: Int32,<br />    grain: Int32,<br />    vegetables: Int32,<br />    fat: Int32}<br />snack{<br />    protein: Int32,<br />    carbohydrate: Int32} |
+| serving_options (admin only) | category: String<br />ingredient: String<br />quantity: Int32<br />engineering_unit: String |
+| built_meals                  | meal_name: String<br />created_by: String<br />servings_selected: List String<br />servings_quantities: List Int32 |
+| build_plans                  | plan_start_date: Date<br />plan_end_date: Date<br />create_by: String<br />meals_selected: List String<br />groceries_list: List String |
 
 *This collection is part of the future scope.
 
@@ -101,7 +101,7 @@ The default typography of Materialize will be used throughout.
 
 ## Features
 
-
+**Home Page**: simple welcoming text explaining the purpose of the website.
 
 ### Existing Features
 
@@ -125,31 +125,47 @@ The default typography of Materialize will be used throughout.
 - [Gitpod](https://gitpod.io/workspaces/):
   The developer used Gitpod as the IDE for building the website.
 
+- [MongoDB](https://www.mongodb.com/):
+
+  Used for database management.
+
+- [Heroku](https://www.heroku.com/):
+
+  Used for application deployment.
+
+- [Flask](https://flask.palletsprojects.com/en/2.0.x/):
+
+  Used throughout for routing / templating .
+
 - [Fonts Awesome v5.15](https://fontawesome.com/):
-  Used for the menu icon.
+  Used for several icons throughout the project.
+
+- [Materialize](https://materializecss.com/):
+
+  Used for templates styling.
 
 - [Typora](https://typora.io/#):
   Used for Markdown editing of README and TESTING files.
 
 - [Clip Studio Paint](https://www.clipstudio.net/en/):
-  Used for images development and editing.
+  Used for logo editing.
 
-- <!--[AutoPrefixer](https://autoprefixer.github.io):-->
+- [Canva](https://www.canva.com/):
+  Used for logo development.
+
+- <!--[AutoPrefixer](https://autoprefixer.github.io): -->
   <!--Used on CSS to ensure functionality across browsers.-->
 
 - [jQuery API](https://api.jquery.com/):
-  Used with Materialize for components initialization.
+  Used for Materialize components initialization.
 
+- 
 
 ## Testing
 
 Refer to [TESTING.md](TESTING.md) file for testing details.
 
 ## Deployment
-
-This project was developed using the Gitpod IDE, committed to git and pushed to GitHub.
-
-### Deploy to Heroku from GitHub Repository:
 
 This project was developed using the Gitpod IDE, committed to git and pushed to GitHub.
 
@@ -174,6 +190,7 @@ Note: ensure you have a Procfile and requirements.txt indicating language and pa
 ### Download project to local IDE:
 
 - 
+
 ## Credit
 
 ### Content
@@ -182,15 +199,17 @@ This web application was based on the guidelines published by [Live Health Onlin
 
 ### Media
 
-
+Logo was created using [Canva](https://www.canva.com/) and edit with [Clip Studio Paint](https://www.clipstudio.net/en/).
 
 ### Code
+
+Favicon added as per ["Add A Favicon to A Website in HTML | Learn HTML and CSS | HTML Tutorial | HTML for Beginners"](https://www.youtube.com/watch?v=kEf1xSwX5D8) by Dani Krossing
 
 
 
 ### Acknowledgment
 
-Favicon added as per ["Add A Favicon to A Website in HTML | Learn HTML and CSS | HTML Tutorial | HTML for Beginners"](https://www.youtube.com/watch?v=kEf1xSwX5D8) by Dani Krossing
+
 
 ## Disclaimer
 

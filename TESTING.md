@@ -1,6 +1,6 @@
 # Healthy Meal Planner - Testing Protocol
 
-[Demo of Website](#).
+[Demo of Website](https://healthy-meal-planner.herokuapp.com/).
 
 Refer to [Main project file](README.md) for further detail.
 
@@ -16,9 +16,9 @@ Refer to [Main project file](README.md) for further detail.
 
 1.	As a new visitor to the website, I want to understand the main concept of the plan.
 
-![](# "")
+![Home Page Text](screenshots/screenshot-user-story-1.png "Home Page Text")
 
-    - 
+    - As a new visitor, I understand the objective of the application with the welcoming Home page text.
 
 2.	As a new visitor to the website, I want to find instructions on how to use the application.
 
