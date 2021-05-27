@@ -3,6 +3,7 @@ from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
@@ -86,8 +87,28 @@ def profile(username):
     user = mongo.db.users.find_one(
         {"username": session["user"]})
 
+    built_meals = mongo.db.built_meals.find(
+        {"created_by": session["user"]})
+
+    for built_meal in built_meals:
+        servings_selected = []
+
+        for index, serving in enumerate(built_meal["servings_selected"]):
+            serving_option = mongo.db.serving_options.find_one(
+                {"_id": ObjectId(serving)})
+
+            servings_selected.append("{} {} {}".format(
+                serving_option["quantity"] *
+                built_meal["servings_quantities"][index],
+                serving_option["engineering_unit"],
+                serving_option["ingredient"]))
+
+    built_meals.rewind()
+
     if session["user"]:
-        return render_template("profile.html", user=user)
+        return render_template(
+            "profile.html", user=user, built_meals=built_meals,
+            servings_selected=servings_selected)
 
     return redirect(url_for("login"))
 

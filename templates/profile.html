@@ -9,19 +9,35 @@
         <h4 class="col s6"><i class="fas fa-utensils"></i> Your Meals:</h4>
     </div>
 
-    <div class="row">
-        <div class="col s5 offset-s1 m3 offset-m1">
-            <div class="card-panel blue-grey lighten-1"">
-                <span class="white-text">
+    <div class="row valign-wrapper">
+        {% for meal in built_meals %}
+            <div class="col s5 offset-s1 m3 offset-m1">
+                <div class="card-panel blue-grey lighten-1 white-text">
+                    <a class="btn-floating btn-small waves-effect waves-light blue-grey lighten-5
+                        right tooltipped" data-position="right" data-tooltip="Edit meal">
+                        <i class="fas fa-pen blue-grey-text"></i>
+                    </a>
+                    <p><strong>{{ meal.meal_name }}</strong></p>
+                    <a class="btn-floating btn-small waves-effect waves-light blue-grey lighten-5
+                        right tooltipped" data-position="right" data-tooltip="Delete meal">
+                        <i class="fas fa-minus blue-grey-text"></i>
+                    </a>
                     <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        {% for serving in servings_selected %}
+                            <li>{{ serving }}</li>
+                        {% endfor %}
                     </ul>
-                </span>
+                </div>
             </div>
+        {% endfor %}
+        
+        <div class="col s5 offset-s1 m3 offset-m1">
+            <a class="btn-floating btn-large waves-effect waves-light blue-grey lighten-1
+                tooltipped" data-position="top" data-tooltip="Add meal">
+                <i class="fas fa-plus"></i>
+            </a>
         </div>
+        
     </div>
 
 {% endblock %}
