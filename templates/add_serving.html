@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+    <!-- Log in form -->
+    <div class="col s12">
+        <div class="row center-align">
+            <h4 class="col s12 section blue-grey-text text-darken-1">Add Serving</h4>
+        </div>
+
+        <div class="row">
+            <form class="col s12 section" method="" action="">
+                    <div class="div row">
+                        <div class="col s6 m3 offset-m4" id="category">
+                            <p>Category:</p>
+                            <p>
+                                <label for="breakfast">
+                                    <input class="with-gap" name="category_meal" value="breakfast" id="breakfast" type="radio" checked />
+                                    <span>Breakfast</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label for="lunch">
+                                    <input class="with-gap" name="category_meal" value="lunch" id="lunch" type="radio" />
+                                    <span>Lunch</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label for="dinner">
+                                    <input class="with-gap" name="category_meal" value="dinner" id="dinner" type="radio" />
+                                    <span>Dinner</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label for="snack">
+                                    <input class="with-gap" name="category_meal" value="snack" id="snack" type="radio" />
+                                    <span>Snack</span>
+                                </label>
+                            </p>
+                        </div>
+
+                        <div class="col s6 m3" id="category_type">
+                            <p>Type:</p>
+                            <p>
+                                <label for="protein">
+                                    <input class="with-gap" name="category_type" value="protein" id="protein" type="radio" checked />
+                                    <span>Protein</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label for="grain">
+                                    <input class="with-gap" name="category_type" value="grain" id="grain" type="radio" />
+                                    <span>Grain</span>
+                                </label>
+                            </p>
+                            <p class="hide-option">
+                                <label for="vegetables">
+                                    <input class="with-gap" name="category_type" value="vegetables" id="vegetables" type="radio" />
+                                    <span>Vegetables</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label for="fruit">
+                                    <input class="with-gap" name="category_type" value="fruit" id="fruit" type="radio" />
+                                    <span>Fruit</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label for="fat">
+                                    <input class="with-gap" name="category_type" value="fat" id="fat" type="radio" />
+                                    <span>Fat</span>
+                                </label>
+                            </p>
+                            <p class="hide-option">
+                                <label for="carbohydrate">
+                                    <input class="with-gap" name="category_type" value="carbohydrate" id="carbohydrate" type="radio" />
+                                    <span>Carbohydrate</span>
+                                </label>
+                            </p>
+                        </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12 m6 offset-m3">
+                        <i class="fas fa-user-alt prefix blue-grey-text text-darken-1"></i>
+                        <input id="ingredient" name="ingredient" type="text" minlength="4"
+                            maxlength="50" pattern="^[a-zA-Z]{4,50}$" class="validate" required>
+                        <label for="ingredient">Ingredient</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s6 m3 offset-m3">
+                        <i class="fas fa-user-alt prefix blue-grey-text text-darken-1"></i>
+                        <input id="quantity" name="quantity" type="text" minlength="1"
+                            maxlength="2" pattern="^[0-9]{1,2}$" class="validate" required>
+                        <label for="quantity">Quantity</label>
+                    </div>
+
+                    <div class="input-field col s6 m3">
+                        <i class="fas fa-user-alt prefix blue-grey-text text-darken-1"></i>
+                        <input id="engineering_unit" name="engineering_unit" type="text" minlength="1"
+                            maxlength="20" pattern="^[a-zA-Z0-9]{1,20}$" class="validate" required>
+                        <label for="engineering_unit">Engineering Unit</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <button type="submit" class="col s6 offset-s3 btn-large blue-grey darken-1">
+                        Add
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -141,6 +141,22 @@ def servings(username):
     return redirect(url_for("login"))
 
 
+@app.route("/add_serving")
+def add_serving():
+    if "user" in session:
+        user = mongo.db.users.find_one(
+            {"username": session["user"]})
+
+        if not user["admin"]:
+            return redirect(url_for("home"))
+
+        else:
+            return render_template(
+                "add_serving.html", user=user)
+
+    return redirect(url_for("home"))
+
+
 @app.route("/logout")
 def logout():
     # remove user from session cookie
