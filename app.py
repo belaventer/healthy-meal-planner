@@ -115,6 +115,32 @@ def profile(username):
     return redirect(url_for("login"))
 
 
+@app.route("/servings/<username>")
+def servings(username):
+    user = mongo.db.users.find_one(
+        {"username": session["user"]})
+
+    if not user["admin"]:
+        return redirect(url_for("home"))
+
+    else:
+        serving_options = mongo.db.serving_options.find()
+        servings = []
+
+        for serving in serving_options:
+            serving.pop("_id")
+
+            serving["category"] = serving["category"].replace("_", " ").title()
+
+            servings.append(serving)
+
+        if session["user"]:
+            return render_template(
+                "servings.html", user=user, serving_options=servings)
+
+    return redirect(url_for("login"))
+
+
 @app.route("/logout")
 def logout():
     # remove user from session cookie

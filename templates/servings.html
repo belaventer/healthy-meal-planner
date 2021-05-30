@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="row">
+        <h3 class="col s12 center-align">Manage Serving Options</h3>
+    </div>
+
+    {% if serving_options|length == 0 %}
+
+        <div class="row">
+            <h5 class="col s12 center-align"> No serving  created yet. Start now by clicking the Plus button.</h5>
+        </div>
+
+    {% else %}
+
+        <div class="row valign-wrapper">
+            {% for serving in serving_options %}
+
+                <div class="col s5 offset-s1 m3 offset-m1">
+                    <div class="card-panel blue-grey lighten-1 white-text">
+                        <a class="btn-floating btn-small waves-effect waves-light blue-grey lighten-5
+                            right tooltipped" data-position="right" data-tooltip="Delete serving">
+                            <i class="fas fa-minus blue-grey-text"></i>
+                        </a>
+                        <a class="btn-floating btn-small waves-effect waves-light blue-grey lighten-5
+                            right tooltipped" data-position="right" data-tooltip="Edit serving">
+                            <i class="fas fa-pen blue-grey-text"></i>
+                        </a>
+
+                        <p><strong>{{ serving["category"] }}</strong></p>
+                        <p>{{ serving["quantity"] }} {{ serving["engineering_unit"] }} {{ serving["ingredient"] }} </p>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+        <div class="col s5 offset-s1 m3 offset-m1">
+            <a class="btn-floating btn-large waves-effect waves-light blue-grey lighten-1
+                tooltipped" data-position="top" data-tooltip="Add serving">
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
+        
+    </div>
+
+{% endblock %}
