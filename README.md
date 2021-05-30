@@ -70,7 +70,7 @@ The help section will be a single continuous page that opens on a new tab with a
 | users                        | username: String<br />password: String (hashed)<br />admin: Boolean |
 | daily_intake* (admin only)   | total_calories: Int32<br />breakfast {<br />    protein: Int32,<br />    grain: Int32,<br />    fruit: Int32,<br />    fat: Int32}<br />lunch{<br />    protein: Int32,<br />    grain: Int32,<br />    vegetables: Int32,<br />    fruit: Int32,<br />    fat: Int32}<br />dinner{<br />    protein: Int32,<br />    grain: Int32,<br />    vegetables: Int32,<br />    fat: Int32}<br />snack{<br />    protein: Int32,<br />    carbohydrate: Int32} |
 | serving_options (admin only) | category: String<br />ingredient: String<br />quantity: Int32<br />engineering_unit: String |
-| built_meals                  | meal_name: String<br />created_by: String<br />servings_selected: List String<br />servings_quantities: List Int32 |
+| built_meals                  | meal_name: String<br />created_by: String<br />servings_selected: Array of ObjectIDs<br />servings_quantities: Array of Int32 |
 | build_plans                  | plan_start_date: Date<br />plan_end_date: Date<br />create_by: String<br />meals_selected: List String<br />groceries_list: List String |
 
 *This collection is part of the future scope.
@@ -103,9 +103,13 @@ The default typography of Materialize will be used throughout.
 
 **Home Page**: simple welcoming text explaining the purpose of the website.
 
+**Login / Register Page**: form allowing to the user to Register or Log In to application.
+
+**Profile Page**: main page when the user is logged in. It will display all the saved meals from the database of the user in session.
+
 ### Existing Features
 
-
+- **Navigation Bar:** The navigation bar is present at the top and collapses to a side bar for mobile view. The options present on the navigation bar, are conditional to the amount of credentials of the session.
 
 ### Features left to implement
 
@@ -205,7 +209,9 @@ Logo was created using [Canva](https://www.canva.com/) and edit with [Clip Studi
 
 Favicon added as per ["Add A Favicon to A Website in HTML | Learn HTML and CSS | HTML Tutorial | HTML for Beginners"](https://www.youtube.com/watch?v=kEf1xSwX5D8) by Dani Krossing
 
+Register / Login and Logout functionality taken from the Task Manager Mini Project of [Code Institute](https://codeinstitute.net/) LMS.
 
+Use of category for flashing messages explanation found in [Teclado Blog](https://blog.teclado.com/flashing-messages-with-flask/).
 
 ### Acknowledgment
 

@@ -28,9 +28,9 @@ Refer to [Main project file](README.md) for further detail.
 
 3.	As a new visitor to the website, I want to register with the application.
 
-![](# "")
+![Log In / Register page](screenshots/screenshot-user-story-3.png "Log In / Register page"")
 
-    - 
+    - As a new visitor, I can navigate to Log In / Register page from the navigation bar and create a new account.
 
 4.	As a user, I want to create meal options following the recommendation.
 
@@ -54,15 +54,33 @@ On mobile, it was viewed <!--with Google Chrome application v.## on Android #.--
 
 The Developer Tools of Google Chrome (v.##) on desktop was used to verify responsiveness on different devices.
 
-1. **Title of feature**:
+1. **Home Page**:
 
-   | Test No. | Action & expected results | Pass / Fail |
-   | -------- | :------------------------ | :---------- |
-   | 1.1      |                           |             |
-   | 1.2      |                           |             |
-   | 1.3      |                           |             |
+   | Test No. | Action & expected results                                    | Pass / Fail |
+   | -------- | :----------------------------------------------------------- | :---------- |
+   | 1.1      | Enter https://healthy-meal-planner.herokuapp.com/ as the URL and verify the Home Page is displayed. | Pass        |
 
-   
+2. **Register / Log Out:**
+
+   | Test No. | Action & expected results                                    | Pass / Fail |
+   | -------- | :----------------------------------------------------------- | :---------- |
+   | 2.1      | From the Navigation Bar, click on Log In / Register. Verify the Log In / Register page is loaded. | Pass        |
+   | 2.2      | On the register side, enter a new user name and a password following the helper text and click Submit. Verify the Profile page for the created user is loaded. | Fail*       |
+   | 2.3      | Click on the Log Out button on the Navigation Bar and verify the session is deleted and user is redirected to Home page. | Pass        |
+   | 2.4      | Navigate to Log In / Register page and attempt to create the same user created on step 2.2. Verify a flash message is displayed indicating that the username already exists and registration does not complete. | Pass        |
+
+   *As there was no meals prepared for the new user, there was the following error: "local variable 'servings_selected' referenced before assignment". Error was fixed with by declaring the servings_selected on the scope of route function.
+
+3. **Log In:**
+
+   | Test No. | Action & expected results                                    | Pass / Fail |
+   | -------- | :----------------------------------------------------------- | :---------- |
+   | 3.1      | Navigate to Log In / Register page and attempt to Log In using a random username and password. Verify a flash message is displayed indicating invalid username and / or password and log in does not complete. | Pass        |
+   | 3.2      | Navigate to Log In / Register page and attempt to Log In using the username created in step 2.2 with an incorrect password. Verify a flash message is displayed indicating invalid username and / or password and log in does not complete. | Pass        |
+   | 3.3      | Navigate to Log In / Register page and attempt to Log In using the username created in step 2.2 with the correct password. Verify the Profile page for the user is loaded. | Pass        |
+
+4. :
+
 
    ### Known issues
 
