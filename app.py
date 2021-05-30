@@ -90,6 +90,8 @@ def profile(username):
     built_meals = mongo.db.built_meals.find(
         {"created_by": session["user"]})
 
+    servings_selected = []
+
     for built_meal in built_meals:
         servings_selected = []
 
