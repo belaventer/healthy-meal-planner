@@ -5,7 +5,7 @@
         <h3 class="col s12 center-align">Manage Serving Options</h3>
     </div>
 
-    {% if serving_options|length == 0 %}
+    {% if serving_options.count() == 0 %}
 
         <div class="row">
             <h5 class="col s12 center-align"> No serving  created yet. Start now by clicking the Plus button.</h5>
@@ -22,13 +22,13 @@
                             right tooltipped" data-position="right" data-tooltip="Delete serving">
                             <i class="fas fa-minus blue-grey-text"></i>
                         </a>
-                        <a class="btn-floating btn-small waves-effect waves-light blue-grey lighten-5
+                        <a href="{{ url_for('edit_serving', serving_id=serving._id) }}" class="btn-floating btn-small waves-effect waves-light blue-grey lighten-5
                             right tooltipped" data-position="right" data-tooltip="Edit serving">
                             <i class="fas fa-pen blue-grey-text"></i>
                         </a>
 
-                        <p><strong>{{ serving["category"] }}</strong></p>
-                        <p>{{ serving["quantity"] }} {{ serving["engineering_unit"] }} {{ serving["ingredient"] }} </p>
+                        <p><strong>{{ serving.category|replace("_", " ")|title }}</strong></p>
+                        <p>{{ serving.quantity }} {{ serving.engineering_unit }} {{ serving.ingredient }} </p>
                     </div>
                 </div>
 

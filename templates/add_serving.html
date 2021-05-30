@@ -2,7 +2,6 @@
 {% block content %}
 
 <div class="row">
-    <!-- Log in form -->
     <div class="col s12">
         <div class="row center-align">
             <h4 class="col s12 section blue-grey-text text-darken-1">Add Serving</h4>
@@ -82,23 +81,22 @@
 
                 <div class="row">
                     <div class="input-field col s12 m6 offset-m3">
-                        <i class="fas fa-user-alt prefix blue-grey-text text-darken-1"></i>
-                        <input id="ingredient" name="ingredient" type="text" minlength="4"
-                            maxlength="50" pattern="^[a-zA-Z ]{4,50}$" class="validate" required>
+                        <i class="fas fa-apple-alt prefix blue-grey-text text-darken-1"></i>
+                        <input id="ingredient" name="ingredient" type="text" minlength="3"
+                            maxlength="50" pattern="^[a-zA-Z --]{3,50}$" class="validate" required>
                         <label for="ingredient">Ingredient</label>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="input-field col s6 m3 offset-m3">
-                        <i class="fas fa-user-alt prefix blue-grey-text text-darken-1"></i>
+                        <i class="fas fa-balance-scale prefix blue-grey-text text-darken-1"></i>
                         <input id="quantity" name="quantity" type="text" minlength="1"
                             maxlength="2" pattern="^[0-9]{1,2}$" class="validate" required>
                         <label for="quantity">Quantity</label>
                     </div>
 
                     <div class="input-field col s6 m3">
-                        <i class="fas fa-user-alt prefix blue-grey-text text-darken-1"></i>
                         <input id="engineering_unit" name="engineering_unit" type="text" minlength="1"
                             maxlength="20" pattern="^[a-zA-Z0-9]{1,20}$" class="validate">
                         <label for="engineering_unit">Engineering Unit</label>

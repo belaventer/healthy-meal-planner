@@ -2,8 +2,13 @@
     $('.sidenav').sidenav({edge: "right"});
     $('.tooltipped').tooltip();
 
+    hideOptions($('#category input:checked'))
     $('#category input').click(function () {
-        switch($(this).val()) {
+        hideOptions($(this));
+    });
+
+    function hideOptions(selected_category)  {
+        switch($(selected_category).val()) {
             case "breakfast":
                     $("#grain").parent().parent().removeClass("hide-option")
                     $("#vegetables").parent().parent().addClass("hide-option")
@@ -33,8 +38,12 @@
                     $("#carbohydrate").parent().parent().removeClass("hide-option")
                 break;
             default:
-                // code block
+                    $("#grain").parent().parent().removeClass("hide-option")
+                    $("#vegetables").parent().parent().addClass("hide-option")
+                    $("#fruit").parent().parent().removeClass("hide-option")
+                    $("#fat").parent().parent().removeClass("hide-option")
+                    $("#carbohydrate").parent().parent().addClass("hide-option")
             }
-    });
+    }
   });
 

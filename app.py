@@ -125,18 +125,10 @@ def servings(username):
 
     else:
         serving_options = mongo.db.serving_options.find()
-        servings = []
-
-        for serving in serving_options:
-            serving.pop("_id")
-
-            serving["category"] = serving["category"].replace("_", " ").title()
-
-            servings.append(serving)
 
         if session["user"]:
             return render_template(
-                "servings.html", user=user, serving_options=servings)
+                "servings.html", user=user, serving_options=serving_options)
 
     return redirect(url_for("login"))
 
@@ -167,6 +159,48 @@ def add_serving():
 
             return render_template(
                 "add_serving.html", user=user)
+
+    return redirect(url_for("home"))
+
+
+@app.route("/edit_serving/<serving_id>", methods=["GET", "POST"])
+def edit_serving(serving_id):
+    if "user" in session:
+        user = mongo.db.users.find_one(
+            {"username": session["user"]})
+
+        if not user["admin"]:
+            return redirect(url_for("home"))
+
+        else:
+            if request.method == "POST":
+                update_serving = {
+                    "category": "{}_{}".format(
+                        request.form.get("category_meal").lower(),
+                        request.form.get("category_type").lower()),
+                    "ingredient": request.form.get("ingredient").lower(),
+                    "quantity": int(request.form.get("quantity")),
+                    "engineering_unit": request.form.get("engineering_unit")
+                }
+
+                mongo.db.serving_options.update(
+                    {"_id": ObjectId(serving_id)}, update_serving)
+                flash("Serving Successfully Updated", "general")
+
+                return redirect(url_for("servings", username=session["user"]))
+
+            serving = mongo.db.serving_options.find_one(
+                {"_id": ObjectId(serving_id)})
+            categories = [
+                ["breakfast", "lunch", "dinner", "snack"],
+                ["protein", "grain", "vegetables", "fruit", "fat",
+                    "carbohydrate"]]
+            category_selected = serving["category"].split("_")
+
+            return render_template(
+                "edit_serving.html", user=user,
+                categories=categories, category_selected=category_selected,
+                serving=serving)
 
     return redirect(url_for("home"))
 

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col s12">
+        <div class="row center-align">
+            <h4 class="col s12 section blue-grey-text text-darken-1">Edit Serving</h4>
+        </div>
+
+        <div class="row">
+            <form class="col s12 section" method="POST" action="{{ url_for('edit_serving', serving_id=serving._id) }}">
+                    <div class="div row">
+                        <div class="col s6 m3 offset-m4" id="category">
+                            <p>Category:</p>
+                            {% for category in categories[0] %}
+                                {% if category == category_selected[0] %}
+                                    <p>
+                                        <label for="{{ category }}">
+                                            <input class="with-gap" name="category_meal" value="{{ category }}" id="{{ category }}" type="radio" checked/>
+                                            <span>{{ category|title }}</span>
+                                        </label>
+                                    </p>
+                                {% else %}
+                                    <p>
+                                        <label for="{{ category }}">
+                                            <input class="with-gap" name="category_meal" value="{{ category }}" id="{{ category }}" type="radio"/>
+                                            <span>{{ category|title }}</span>
+                                        </label>
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="col s6 m3" id="category_type">
+                            <p>Type:</p>
+                            {% for category in categories[1] %}
+                                {% if category == category_selected[1] %}
+                                    <p>
+                                        <label for="{{ category }}">
+                                            <input class="with-gap" name="category_type" value="{{ category }}" id="{{ category }}" type="radio" checked/>
+                                            <span>{{ category|title }}</span>
+                                        </label>
+                                    </p>
+                                {% else %}
+                                    <p>
+                                        <label for="{{ category }}">
+                                            <input class="with-gap" name="category_type" value="{{ category }}" id="{{ category }}" type="radio"/>
+                                            <span>{{ category|title }}</span>
+                                        </label>
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12 m6 offset-m3">
+                        <i class="fas fa-apple-alt prefix blue-grey-text text-darken-1"></i>
+                        <input id="ingredient" name="ingredient" type="text" minlength="3"
+                            maxlength="50" pattern="^[a-zA-Z --]{3,50}$"
+                            value="{{ serving.ingredient }}" class="validate" required>
+                        <label for="ingredient">Ingredient</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s6 m3 offset-m3">
+                        <i class="fas fa-balance-scale prefix blue-grey-text text-darken-1"></i>
+                        <input id="quantity" name="quantity" type="text" minlength="1"
+                            maxlength="2" pattern="^[0-9]{1,2}$"
+                            value="{{ serving.quantity }}" class="validate" required>
+                        <label for="quantity">Quantity</label>
+                    </div>
+
+                    <div class="input-field col s6 m3">
+                        <input id="engineering_unit" name="engineering_unit" type="text" minlength="1"
+                            maxlength="20" pattern="^[a-zA-Z0-9]{1,20}$"
+                            value="{{ serving.engineering_unit }}" class="validate">
+                        <label for="engineering_unit">Engineering Unit</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <button type="submit" class="col s6 offset-s3 btn-large blue-grey darken-1">
+                        Update
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
