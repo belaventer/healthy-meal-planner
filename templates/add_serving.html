@@ -9,7 +9,7 @@
         </div>
 
         <div class="row">
-            <form class="col s12 section" method="" action="">
+            <form class="col s12 section" method="POST" action="add_serving">
                     <div class="div row">
                         <div class="col s6 m3 offset-m4" id="category">
                             <p>Category:</p>
@@ -84,7 +84,7 @@
                     <div class="input-field col s12 m6 offset-m3">
                         <i class="fas fa-user-alt prefix blue-grey-text text-darken-1"></i>
                         <input id="ingredient" name="ingredient" type="text" minlength="4"
-                            maxlength="50" pattern="^[a-zA-Z]{4,50}$" class="validate" required>
+                            maxlength="50" pattern="^[a-zA-Z ]{4,50}$" class="validate" required>
                         <label for="ingredient">Ingredient</label>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                     <div class="input-field col s6 m3">
                         <i class="fas fa-user-alt prefix blue-grey-text text-darken-1"></i>
                         <input id="engineering_unit" name="engineering_unit" type="text" minlength="1"
-                            maxlength="20" pattern="^[a-zA-Z0-9]{1,20}$" class="validate" required>
+                            maxlength="20" pattern="^[a-zA-Z0-9]{1,20}$" class="validate">
                         <label for="engineering_unit">Engineering Unit</label>
                     </div>
                 </div>

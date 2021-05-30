@@ -141,7 +141,7 @@ def servings(username):
     return redirect(url_for("login"))
 
 
-@app.route("/add_serving")
+@app.route("/add_serving", methods=["GET", "POST"])
 def add_serving():
     if "user" in session:
         user = mongo.db.users.find_one(
@@ -151,6 +151,20 @@ def add_serving():
             return redirect(url_for("home"))
 
         else:
+            if request.method == "POST":
+                serving = {
+                    "category": "{}_{}".format(
+                        request.form.get("category_meal").lower(),
+                        request.form.get("category_type").lower()),
+                    "ingredient": request.form.get("ingredient").lower(),
+                    "quantity": int(request.form.get("quantity")),
+                    "engineering_unit": request.form.get("engineering_unit")
+                }
+
+                mongo.db.serving_options.insert_one(serving)
+
+                return redirect(url_for("servings", username=session["user"]))
+
             return render_template(
                 "add_serving.html", user=user)
 
