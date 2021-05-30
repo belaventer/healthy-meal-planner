@@ -26,6 +26,10 @@ nav .brand-logo {
     padding: 20px 5px;
 }
 
+.fixed-height {
+    height: 175px;
+}
+
 .hide-option {
     display: none;
 }

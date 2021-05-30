@@ -44,7 +44,7 @@
             <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
             <li><a href="#">Build Meal</a></li>
             <li><a href="#">Plan Week</a></li>
-            {% if admin %}
+            {% if user.admin %}
                 <li><a href="{{ url_for('servings', username=session['user']) }}">Manage Servings</a></li>
             {% endif %}
             <li><a href="{{ url_for('logout') }}">Log Out</a></li>
