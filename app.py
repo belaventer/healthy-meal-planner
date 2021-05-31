@@ -224,7 +224,10 @@ def delete_serving(serving_id):
             mongo.db.serving_options.remove({"_id": ObjectId(serving_id)})
             flash("Serving Successfully Deleted", "general")
 
-            return redirect(url_for("servings", username=session["user"]))
+            serving_options = mongo.db.serving_options.find()
+
+            return render_template(
+                "servings.html", user=user, serving_options=serving_options)
 
     return redirect(url_for("home"))
 
