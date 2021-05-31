@@ -149,16 +149,22 @@ def add_serving():
                         request.form.get("category_meal").lower(),
                         request.form.get("category_type").lower()),
                     "ingredient": request.form.get("ingredient").lower(),
-                    "quantity": int(request.form.get("quantity")),
+                    "quantity": float(request.form.get("quantity")),
                     "engineering_unit": request.form.get("engineering_unit")
                 }
 
                 mongo.db.serving_options.insert_one(serving)
+                flash("Serving Successfully Added", "general")
 
                 return redirect(url_for("servings", username=session["user"]))
 
+            categories = [
+                ["breakfast", "lunch", "dinner", "snack"],
+                ["protein", "grain", "vegetables", "fruit", "fat",
+                    "carbohydrate"]]
+
             return render_template(
-                "add_serving.html", user=user)
+                "add_serving.html", user=user, categories=categories)
 
     return redirect(url_for("home"))
 
@@ -179,7 +185,7 @@ def edit_serving(serving_id):
                         request.form.get("category_meal").lower(),
                         request.form.get("category_type").lower()),
                     "ingredient": request.form.get("ingredient").lower(),
-                    "quantity": int(request.form.get("quantity")),
+                    "quantity": float(request.form.get("quantity")),
                     "engineering_unit": request.form.get("engineering_unit")
                 }
 

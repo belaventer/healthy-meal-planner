@@ -3,53 +3,59 @@
 
 <div class="row">
     <div class="col s12">
+        
+        <a href="{{ url_for('servings', username=session.user) }}" class="btn-floating btn-large waves-effect waves-light blue-grey lighten-1
+                tooltipped right" data-position="top" data-tooltip="Cancel">
+                <i class="fas fa-times"></i>
+        </a>
+        
         <div class="row center-align">
             <h4 class="col s12 section blue-grey-text text-darken-1">Edit Serving</h4>
         </div>
 
         <div class="row">
             <form class="col s12 section" method="POST" action="{{ url_for('edit_serving', serving_id=serving._id) }}">
-                    <div class="div row">
-                        <div class="col s6 m3 offset-m4" id="category">
-                            <p>Category:</p>
-                            {% for category in categories[0] %}
-                                {% if category == category_selected[0] %}
-                                    <p>
-                                        <label for="{{ category }}">
-                                            <input class="with-gap" name="category_meal" value="{{ category }}" id="{{ category }}" type="radio" checked/>
-                                            <span>{{ category|title }}</span>
-                                        </label>
-                                    </p>
-                                {% else %}
-                                    <p>
-                                        <label for="{{ category }}">
-                                            <input class="with-gap" name="category_meal" value="{{ category }}" id="{{ category }}" type="radio"/>
-                                            <span>{{ category|title }}</span>
-                                        </label>
-                                    </p>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                        <div class="col s6 m3" id="category_type">
-                            <p>Type:</p>
-                            {% for category in categories[1] %}
-                                {% if category == category_selected[1] %}
-                                    <p>
-                                        <label for="{{ category }}">
-                                            <input class="with-gap" name="category_type" value="{{ category }}" id="{{ category }}" type="radio" checked/>
-                                            <span>{{ category|title }}</span>
-                                        </label>
-                                    </p>
-                                {% else %}
-                                    <p>
-                                        <label for="{{ category }}">
-                                            <input class="with-gap" name="category_type" value="{{ category }}" id="{{ category }}" type="radio"/>
-                                            <span>{{ category|title }}</span>
-                                        </label>
-                                    </p>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
+                <div class="div row">
+                    <div class="col s6 m3 offset-m4" id="category">
+                        <p>Category:</p>
+                        {% for category in categories[0] %}
+                            {% if category == category_selected[0] %}
+                                <p>
+                                    <label for="{{ category }}">
+                                        <input class="with-gap" name="category_meal" value="{{ category }}" id="{{ category }}" type="radio" checked/>
+                                        <span>{{ category|title }}</span>
+                                    </label>
+                                </p>
+                            {% else %}
+                                <p>
+                                    <label for="{{ category }}">
+                                        <input class="with-gap" name="category_meal" value="{{ category }}" id="{{ category }}" type="radio"/>
+                                        <span>{{ category|title }}</span>
+                                    </label>
+                                </p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col s6 m3" id="category_type">
+                        <p>Type:</p>
+                        {% for category in categories[1] %}
+                            {% if category == category_selected[1] %}
+                                <p>
+                                    <label for="{{ category }}">
+                                        <input class="with-gap" name="category_type" value="{{ category }}" id="{{ category }}" type="radio" checked/>
+                                        <span>{{ category|title }}</span>
+                                    </label>
+                                </p>
+                            {% else %}
+                                <p>
+                                    <label for="{{ category }}">
+                                        <input class="with-gap" name="category_type" value="{{ category }}" id="{{ category }}" type="radio"/>
+                                        <span>{{ category|title }}</span>
+                                    </label>
+                                </p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
 
                 <div class="row">
@@ -66,7 +72,7 @@
                     <div class="input-field col s6 m3 offset-m3">
                         <i class="fas fa-balance-scale prefix blue-grey-text text-darken-1"></i>
                         <input id="quantity" name="quantity" type="text" minlength="1"
-                            maxlength="2" pattern="^[0-9]{1,2}$"
+                            maxlength="5" pattern="^[0-9.]{1,5}$"
                             value="{{ serving.quantity }}" class="validate" required>
                         <label for="quantity">Quantity</label>
                     </div>

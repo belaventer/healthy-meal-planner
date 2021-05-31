@@ -23,7 +23,7 @@
         </div>
 
         <div class="row center-align">
-            <form class="col s12 section" method="POST" action="login">
+            <form class="col s12 section" method="POST" action="{{ url_for('login') }}">
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fas fa-user-alt prefix blue-grey-text text-darken-1"></i>
@@ -72,7 +72,7 @@
         </div>
         
         <div class="row center-align">
-            <form class="col s12 section" method="POST" action="register">
+            <form class="col s12 section" method="POST" action="{{ url_for('register') }}">
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fas fa-user-plus prefix blue-grey-text text-darken-1"></i>
