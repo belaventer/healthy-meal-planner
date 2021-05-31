@@ -28,7 +28,7 @@ Other user goals:
 
 5. As a user, I want to create a meal plan for the week.
 
-6. As a user, I want to be able to copy, update or delete the meal options and plan.
+6. As a user, I want to be able to create, update or delete the meal options and plan.
 
 7. As the application administrator, I want to be able to update the servings portions.
 
@@ -69,7 +69,7 @@ The help section will be a single continuous page that opens on a new tab with a
 | ---------------------------- | ------------------------------------------------------------ |
 | users                        | username: String<br />password: String (hashed)<br />admin: Boolean |
 | daily_intake* (admin only)   | total_calories: Int32<br />breakfast {<br />    protein: Int32,<br />    grain: Int32,<br />    fruit: Int32,<br />    fat: Int32}<br />lunch{<br />    protein: Int32,<br />    grain: Int32,<br />    vegetables: Int32,<br />    fruit: Int32,<br />    fat: Int32}<br />dinner{<br />    protein: Int32,<br />    grain: Int32,<br />    vegetables: Int32,<br />    fat: Int32}<br />snack{<br />    protein: Int32,<br />    carbohydrate: Int32} |
-| serving_options (admin only) | category: String<br />ingredient: String<br />quantity: Int32<br />engineering_unit: String |
+| serving_options (admin only) | category: String<br />ingredient: String<br />quantity: Double<br />engineering_unit: String |
 | built_meals                  | meal_name: String<br />created_by: String<br />servings_selected: Array of ObjectIDs<br />servings_quantities: Array of Int32 |
 | build_plans                  | plan_start_date: Date<br />plan_end_date: Date<br />create_by: String<br />meals_selected: List String<br />groceries_list: List String |
 
@@ -107,9 +107,12 @@ The default typography of Materialize will be used throughout.
 
 **Profile Page**: main page when the user is logged in. It will display all the saved meals from the database of the user in session.
 
+**Servings Page**: page exclusive for administrator users to display the serving options available on the database.
+
 ### Existing Features
 
 - **Navigation Bar:** The navigation bar is present at the top and collapses to a side bar for mobile view. The options present on the navigation bar, are conditional to the amount of credentials of the session.
+- **Manage Servings:** From the Servings page, the administrator can add, update or delete serving options available on the database.
 
 ### Features left to implement
 
@@ -212,6 +215,8 @@ Favicon added as per ["Add A Favicon to A Website in HTML | Learn HTML and CSS |
 Register / Login and Logout functionality taken from the Task Manager Mini Project of [Code Institute](https://codeinstitute.net/) LMS.
 
 Use of category for flashing messages explanation found in [Teclado Blog](https://blog.teclado.com/flashing-messages-with-flask/).
+
+Example on how to use AJAX to connect JavaScript and Python found in [Stack Overflow](https://stackoverflow.com/questions/13808187/how-can-i-call-a-specific-function-method-in-a-python-script-from-javascriptjqu)
 
 ### Acknowledgment
 

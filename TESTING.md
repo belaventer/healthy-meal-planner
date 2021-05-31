@@ -44,6 +44,21 @@ Refer to [Main project file](README.md) for further detail.
 
     - 
 
+6.	As a user, I want to be able to create, update or delete the meal options and plan.
+
+![](# "")
+
+    - 
+
+7.	As the application administrator, I want to be able to update the servings portions.
+
+![Servings Page](screenshots/screenshot-user-story-7.png "Servings page"")
+
+    - As the administrator, I can view available serving options by navigating to "Manage Servings".
+    - As the administrator, I can add new serving options by clicking the plus button, filling and submiting a form.
+    - As the administrator, I can update existing servings by clicking the update (pen symbol) button, filling and submiting a form.
+    - As the administrator, I can delete existing servings by clicking the delete (minus symbol) button.
+
 ## Manual testing of features
 
 The deployed Heroku website was viewed on <!--2 desktops screens (21 and 13 inches) and also on Motorola G6 Play device.-->
@@ -79,7 +94,31 @@ The Developer Tools of Google Chrome (v.##) on desktop was used to verify respon
    | 3.2      | Navigate to Log In / Register page and attempt to Log In using the username created in step 2.2 with an incorrect password. Verify a flash message is displayed indicating invalid username and / or password and log in does not complete. | Pass        |
    | 3.3      | Navigate to Log In / Register page and attempt to Log In using the username created in step 2.2 with the correct password. Verify the Profile page for the user is loaded. | Pass        |
 
-4. :
+4. **Manage Servings:**
+
+   For this testing, an Administrator account is needed. An account is "Administrator" by setting the property "Admin" on the user document to True on the Users Collection manually.
+
+   | Test No. | Action & expected results                                    | Pass / Fail |
+   | -------- | :----------------------------------------------------------- | :---------- |
+   | 4.1      | Navigate to Log In / Register and login using an Administrator account. From the navigation bar, click in Manage Servings and verify the Servings page loads displaying the available portions from the serving_options collection. | Pass        |
+   | 4.2      | Scroll until the last Serving displayed and click the add "plus" button. Verify the form for adding a new Serving is loaded. | Pass        |
+   | 4.3      | Click on the cancel "times" button and verify the Servings page is displayed once more without any changes to the serving. | Fail*       |
+   | 4.4      | Scroll until the last Serving displayed and click the add "plus" button. Select each radio button for the category and verify the options for the type adjust to the selected category. | Pass        |
+   | 4.5      | Include the following inputs for the adding a new Meal:<br />Lunch> Protein> Turkey > 1> ounce<br />Verify the card is added to the Servings page with newly created option. | Pass        |
+   | 4.6      | Click on the edit "pen" button of the newly created card and verify the Edit Serving page is loaded with the content of the  serving pre-populated. | Fail**      |
+   | 4.7      | Change one of the fields and click on update. Verify on the Servings page the document is correctly updated. | Pass        |
+   | 4.8      | Click on the delete "minus" button of the newly created card. Verify a confirmation prompt is displayed. Click Cancel and verify the serving was not deleted. | Pass        |
+   | 4.9      | Click on the  delete "minus" button of the newly created card. Verify a confirmation prompt is displayed. Click Ok and verify the serving is deleted. | Pass        |
+
+   *when the templates were, the cancel functionality was missed in error. The button was then add to the top of both edit and add forms and is not functional.
+
+   **the servings route was poping out the ID in error. The line of code was removed from the servings routing and the edit page could identify the correct document.
+
+5. 
+
+6. 
+
+
 
 
    ### Known issues
