@@ -211,6 +211,24 @@ def edit_serving(serving_id):
     return redirect(url_for("home"))
 
 
+@app.route("/delete_serving/<serving_id>")
+def delete_serving(serving_id):
+    if "user" in session:
+        user = mongo.db.users.find_one(
+            {"username": session["user"]})
+
+        if not user["admin"]:
+            return redirect(url_for("home"))
+
+        else:
+            mongo.db.serving_options.remove({"_id": ObjectId(serving_id)})
+            flash("Serving Successfully Deleted", "general")
+
+            return redirect(url_for("servings", username=session["user"]))
+
+    return redirect(url_for("home"))
+
+
 @app.route("/logout")
 def logout():
     # remove user from session cookie
