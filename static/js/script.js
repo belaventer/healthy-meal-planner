@@ -1,6 +1,8 @@
  $(document).ready(function(){
     $('.sidenav').sidenav({edge: "right"});
     $('.tooltipped').tooltip();
+    $('.collapsible').collapsible();
+    $('select').formSelect();
 
     hideOptions($('#category input:checked'))
     $('#category input').click(function () {
@@ -58,5 +60,72 @@
                 });                
         }
     });
-  });
 
+    $('input[name="meal_category"]').click(function() {
+        $.ajax({
+            url: "/get_serving_options/" + $(this).attr('id'),
+            type: "get",
+            data: {},
+            success: function(data){
+                var list_categories = "";
+                var servings = JSON.parse(data);
+                var colours = {
+                    "protein": "red darken-4",
+                    "carbohydrate": "red darken-4",
+                    "grain": "yellow darken-4",
+                    "fat": "orange darken-4",
+                    "fruit": "blue darken-4",
+                    "vegetables": "green darken-4"
+                }
+
+                for (key in servings[1]) {
+                    var list_options = "";
+                    var list_servings = "";
+
+                    // Explanation for iterating on objects from https://stackoverflow.com/questions/19529403/javascript-loop-through-object-array
+                    for (var i = 0, l = servings[0].length; i < l; i++) {
+                        var serving = servings[0][i];
+                        if (serving.category.split("_").pop() == key) {
+                            list_servings = list_servings +
+                                `<option value="${serving._id}">${serving.quantity} ${serving.engineering_unit} ${serving.ingredient}</option>`;
+                        }
+                    }
+
+                    for (var i = 0, l = servings[1][key]; i < l; i++) {
+                        list_options = list_options +
+                            `<div class="input-field">
+                                <select>
+                                    <option value="" disabled selected>Select Serving</option>
+                                    ${list_servings}
+                                </select>
+                                <label>Serving ${i + 1} </label>
+                            </div>`;
+                    }
+
+                    list_categories = list_categories +
+                        `<ul class="collapsible white-text">
+                            <li>
+                            <div class="collapsible-header ${colours[key]}">
+                                <strong class="white-text">
+                                    ${key[0].toUpperCase() + key.slice(1)}
+                                </strong>
+                            </div>
+                            <div class="collapsible-body">
+                                <ul>
+                                    ${list_options}
+                                </ul>
+                            </div>
+                            </li>
+                        </ul>`;
+                }
+
+                $("#new-content").html(
+                    list_categories
+                )
+
+                $('.collapsible').collapsible();
+                $('select').formSelect();
+            }
+            });
+    });
+  });

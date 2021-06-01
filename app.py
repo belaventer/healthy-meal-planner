@@ -1,4 +1,5 @@
 import os
+import json
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -230,6 +231,38 @@ def delete_serving(serving_id):
                 "servings.html", user=user, serving_options=serving_options)
 
     return redirect(url_for("home"))
+
+
+@app.route("/add_meal", methods=["GET", "POST"])
+def add_meal():
+    if "user" in session:
+        user = mongo.db.users.find_one(
+            {"username": session["user"]})
+
+        categories = ["breakfast", "lunch", "dinner", "snack"]
+
+        return render_template(
+            "add_meal.html", user=user, categories=categories)
+
+    return redirect(url_for("home"))
+
+
+@app.route("/get_serving_options/<meal_category>")
+def get_serving_options(meal_category):
+    serving_options = mongo.db.serving_options.find(
+            {"category": {'$regex': meal_category}})
+    servings = []
+    intakes = []
+    daily_intake = mongo.db.daily_intake.find_one()
+
+    intakes = daily_intake[meal_category]
+
+    for serving in serving_options:
+        serving["_id"] = str(serving["_id"])
+
+        servings.append(serving)
+
+    return json.dumps([servings, intakes])
 
 
 @app.route("/logout")

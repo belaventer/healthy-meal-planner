@@ -24,7 +24,7 @@
             <ul class="right hide-on-med-and-down">
                 {% if session.user %}
                     <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-                    <li><a href="#">Build Meal</a></li>
+                    <li><a href="{{ url_for('add_meal') }}">Build Meal</a></li>
                     <li><a href="#">Plan Week</a></li>
                     {% if user.admin %}
                         <li><a href="{{ url_for('servings', username=session['user']) }}">Manage Servings</a></li>
@@ -42,7 +42,7 @@
         <h5>Healthy Meal Planner</h5>
         {% if session.user %}
             <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-            <li><a href="#">Build Meal</a></li>
+            <li><a href="{{ url_for('add_meal') }}">Build Meal</a></li>
             <li><a href="#">Plan Week</a></li>
             {% if user.admin %}
                 <li><a href="{{ url_for('servings', username=session['user']) }}">Manage Servings</a></li>
