@@ -13,13 +13,13 @@
             <h4 class="col s12 section blue-grey-text text-darken-1">Add Meal</h4>
         </div>
 
-        <form class="row" method="" action="{{ url_for('add_meal') }}">
+        <form class="row" method="POST" action="{{ url_for('add_meal') }}">
             <div class="col s12 m4">
                 <div class="row">
                     <div class="input-field">
                         <i class="fas fa-utensils prefix blue-grey-text text-darken-1"></i>
                         <input id="meal_name" name="meal_name" type="text" minlength="3"
-                            maxlength="50" pattern="^[a-zA-Z --]{3,50}$" class="validate" required>
+                            maxlength="50" pattern="^[a-zA-Z0-9 --]{3,50}$" class="validate" required>
                         <label for="meal_name">Meal Name</label>
                     </div>
                 </div>
@@ -28,7 +28,8 @@
                     {% for category in categories %}
                         <p>
                             <label for="{{ category }}">
-                                <input class="with-gap" name="meal_category" value="{{ category }}" id="{{ category }}" type="radio"/>
+                                <input class="with-gap" name="meal_category"
+                                value="{{ category }}" id="{{ category }}" type="radio"/>
                                 <span>{{ category|title }}</span>
                             </label>
                         </p>
@@ -41,7 +42,8 @@
 
 
             <div class="col s12">
-                <button type="submit" class="col s6 offset-s3 btn-large blue-grey darken-1">
+                <button id="add-meal-button" type="submit"
+                    class="col s6 offset-s3 btn-large blue-grey darken-1">
                     Add
                 </button>
             </div>

@@ -27,7 +27,7 @@ nav .brand-logo {
 }
 
 .fixed-height {
-    height: 175px;
+    min-height: 175px;
 }
 
 .hide-option {

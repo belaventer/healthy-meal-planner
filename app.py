@@ -96,13 +96,13 @@ def profile(username):
     for built_meal in built_meals:
         servings_selected = []
 
-        for index, serving in enumerate(built_meal["servings_selected"]):
+        for serving in built_meal["servings_selected"]:
             serving_option = mongo.db.serving_options.find_one(
                 {"_id": ObjectId(serving)})
 
             servings_selected.append("{} {} {}".format(
                 serving_option["quantity"] *
-                built_meal["servings_quantities"][index],
+                built_meal["servings_quantities"][str(serving)],
                 serving_option["engineering_unit"],
                 serving_option["ingredient"]))
 
@@ -240,6 +240,32 @@ def add_meal():
             {"username": session["user"]})
 
         categories = ["breakfast", "lunch", "dinner", "snack"]
+
+        if request.method == "POST":
+            servings_selected = []
+            servings_quantities = {}
+            for input, value in request.form.to_dict().items():
+                if (input != "meal_name"
+                        and input != "meal_category"):
+                    if (value not in servings_quantities.keys()):
+                        servings_quantities[value] = 1
+                    else:
+                        servings_quantities[value] += 1
+
+                    if (ObjectId(value) not in servings_selected):
+                        servings_selected.append(ObjectId(value))
+
+            meal = {
+                "meal_name": request.form.get("meal_name"),
+                "created_by": session["user"],
+                "servings_selected": servings_selected,
+                "servings_quantities": servings_quantities
+            }
+
+            mongo.db.built_meals.insert_one(meal)
+            flash("Meal Successfully Added", "general")
+
+            return redirect(url_for("profile", username=session["user"]))
 
         return render_template(
             "add_meal.html", user=user, categories=categories)

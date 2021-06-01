@@ -94,11 +94,11 @@
                     for (var i = 0, l = servings[1][key]; i < l; i++) {
                         list_options = list_options +
                             `<div class="input-field">
-                                <select>
+                                <select id="${key}_${i + 1}" name="${key}_${i + 1}">
                                     <option value="" disabled selected>Select Serving</option>
                                     ${list_servings}
                                 </select>
-                                <label>Serving ${i + 1} </label>
+                                <label for="serving_${i + 1}">Serving ${i + 1}</label>
                             </div>`;
                     }
 

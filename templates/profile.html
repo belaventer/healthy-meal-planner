@@ -6,7 +6,7 @@
     </div>
 
     <div class="row">
-        <h4 class="col s6"><i class="fas fa-utensils"></i> Your Meals:</h4>
+        <h4 class="col s12 m6"><i class="fas fa-utensils"></i> Your Meals:</h4>
     </div>
 
     {% if built_meals.count() == 0 %}
@@ -45,7 +45,7 @@
 
         {% endif %}
 
-        <div class="col s6 m3 valign-wrapper fixed-height">
+        <div class="col s6 m3">
             <a href="{{ url_for('add_meal') }}" class="btn-floating btn-large waves-effect waves-light blue-grey lighten-1
                 tooltipped" data-position="top" data-tooltip="Add meal">
                 <i class="fas fa-plus"></i>
