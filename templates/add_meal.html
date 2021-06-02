@@ -28,8 +28,8 @@
                     {% for category in categories %}
                         <p>
                             <label for="{{ category }}">
-                                <input class="with-gap" name="meal_category"
-                                value="{{ category }}" id="{{ category }}" type="radio"/>
+                                <input class="with-gap validate" name="meal_category"
+                                    value="{{ category }}" id="{{ category }}" type="radio" required/>
                                 <span>{{ category|title }}</span>
                             </label>
                         </p>

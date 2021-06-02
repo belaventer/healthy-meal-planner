@@ -21,19 +21,21 @@
                         {% for category in categories[0] %}
                             <p>
                                 <label for="{{ category }}">
-                                    <input class="with-gap" name="category_meal" value="{{ category }}" id="{{ category }}" type="radio"/>
+                                    <input class="with-gap validate" name="category_meal" value="{{ category }}"
+                                        id="{{ category }}" type="radio" required/>
                                     <span>{{ category|title }}</span>
                                 </label>
                             </p>
                         {% endfor %}
                     </div>
-                    <div class="col s6 m3" id="category_type">
+                    <div class="col s6 m3">
                         <p>Type:</p>
-                        {% for category in categories[1] %}
+                        {% for type in categories[1] %}
                             <p>
-                                <label for="{{ category }}">
-                                    <input class="with-gap" name="category_type" value="{{ category }}" id="{{ category }}" type="radio"/>
-                                    <span>{{ category|title }}</span>
+                                <label for="{{ type }}">
+                                    <input class="with-gap validate" name="category_type" value="{{ type }}"
+                                        id="{{ type }}" type="radio" required/>
+                                    <span>{{ type|title }}</span>
                                 </label>
                             </p>
                         {% endfor %}
