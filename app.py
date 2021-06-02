@@ -91,20 +91,22 @@ def profile(username):
     built_meals = mongo.db.built_meals.find(
         {"created_by": session["user"]})
 
-    servings_selected = []
+    servings_selected = {}
 
     for built_meal in built_meals:
-        servings_selected = []
+        list_options = []
 
         for serving in built_meal["servings_selected"]:
             serving_option = mongo.db.serving_options.find_one(
                 {"_id": ObjectId(serving)})
 
-            servings_selected.append("{} {} {}".format(
+            list_options.append("{} {} {}".format(
                 serving_option["quantity"] *
                 built_meal["servings_quantities"][str(serving)],
                 serving_option["engineering_unit"],
                 serving_option["ingredient"]))
+
+        servings_selected.update({built_meal["meal_name"]: list_options})
 
     built_meals.rewind()
 
