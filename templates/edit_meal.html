@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col s12">
+                
+        <a href="{{ url_for('profile', username=session.user) }}" class="btn-floating btn-large waves-effect waves-light blue-grey lighten-1
+                tooltipped right" data-position="top" data-tooltip="Cancel">
+                <i class="fas fa-times"></i>
+        </a>
+        
+        <div class="row center-align">
+            <h4 class="col s12 section blue-grey-text text-darken-1">Edit Meal</h4>
+        </div>
+
+        <form class="row" method="" action="{{ url_for('edit_meal', meal_id=meal._id) }}">
+            <div class="col s12 m4">
+                <div class="row">
+                    <div class="input-field">
+                        <i class="fas fa-utensils prefix blue-grey-text text-darken-1"></i>
+                        <input id="meal_name" name="meal_name" type="text" minlength="3"
+                            maxlength="50" pattern="^[a-zA-Z0-9 --]{3,50}$" 
+                            value="{{ meal.meal_name }}" class="validate" required>
+                        <label for="meal_name">Meal Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <p>Category:</p>
+                    {% for category in categories %}
+                        {% if category == meal.category %}
+                            <p>
+                                <label for="{{ category }}">
+                                    <input class="with-gap validate" name="meal_category"
+                                        value="{{ category }}" id="{{ category }}" 
+                                        type="radio" checked required/>
+                                    <span>{{ category|title }}</span>
+                                </label>
+                            </p>
+                        {% else %}
+                            <p>
+                                <label for="{{ category }}">
+                                    <input class="with-gap validate" name="meal_category"
+                                        value="{{ category }}" id="{{ category }}" 
+                                        type="radio" required/>
+                                    <span>{{ category|title }}</span>
+                                </label>
+                            </p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            {% set count = [] %}
+            {%- set colours = {
+                    "protein": "red darken-4",
+                    "carbohydrate": "red darken-4",
+                    "grain": "yellow darken-4",
+                    "fat": "orange darken-4",
+                    "fruit": "blue darken-4",
+                    "vegetables": "green darken-4"
+                } -%}
+            <div class="col s12 m8" id="new-content">
+                {% for key, value in intakes.items() %}
+                <ul class="collapsible white-text">
+                    <li>
+                    <div class="collapsible-header {{ colours[key] }}">
+                        <strong class="white-text">
+                            {{ key|title}}
+                        </strong>
+                    </div>
+                    <div class="collapsible-body">
+                        <ul>
+                            {% for i in range(value) %}
+                                <div class="input-field">
+                                    <select id="{{ key + '_' + (i+1)|string }}" name="{{ key + '_' + (i+1)|string }}"
+                                        class="validate" required>
+                                        {% for serving in servings if (serving.category|replace(meal.category+"_", "") == key) %}
+                                            {% if serving._id == meal.servings_selected[count|sum()+i if count|sum() != 0 else i]|string %}
+                                                <option value="{{ serving._id }}" selected>
+                                                    {{- serving.quantity }} {{ serving.engineering_unit }} {{ serving.ingredient -}}
+                                                </option>
+                                            {% else %}
+                                                <option value="{{ serving._id }}">
+                                                    {{- serving.quantity }} {{ serving.engineering_unit }} {{ serving.ingredient -}}
+                                                </option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    <label for="{{ 'serving_' + (i+1)|string }}">Serving {{ i + 1 }}</label>
+                                </div>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    </li>
+                </ul>
+                <!-- Append taken from https://stackoverflow.com/questions/49619445/how-to-append-to-a-list-in-jinja2-for-ansible -->
+                {{- count.append(value) or "" -}}
+                {% endfor %}
+            </div>
+
+
+            <div class="col s12">
+                <button id="add-meal-button" type="submit"
+                    class="col s6 offset-s3 btn-large blue-grey darken-1">
+                    Update
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

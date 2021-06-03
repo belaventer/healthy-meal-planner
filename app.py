@@ -259,6 +259,7 @@ def add_meal():
 
             meal = {
                 "meal_name": request.form.get("meal_name"),
+                "category": request.form.get("category"),
                 "created_by": session["user"],
                 "servings_selected": servings_selected,
                 "servings_quantities": servings_quantities
@@ -278,7 +279,7 @@ def add_meal():
 @app.route("/get_serving_options/<meal_category>")
 def get_serving_options(meal_category):
     serving_options = mongo.db.serving_options.find(
-            {"category": {'$regex': meal_category}})
+        {"category": {'$regex': meal_category}})
     servings = []
     intakes = []
     daily_intake = mongo.db.daily_intake.find_one()
@@ -291,6 +292,44 @@ def get_serving_options(meal_category):
         servings.append(serving)
 
     return json.dumps([servings, intakes])
+
+
+@app.route("/edit_meal/<meal_id>", methods=["GET", "POST"])
+def edit_meal(meal_id):
+    if "user" in session:
+        user = mongo.db.users.find_one(
+            {"username": session["user"]})
+
+        meal = mongo.db.built_meals.find_one(
+            {"_id": ObjectId(meal_id)})
+
+        for serving, quantity in meal["servings_quantities"].items():
+            if quantity > 1:
+                meal["servings_selected"].insert(
+                    meal["servings_selected"].index(ObjectId(serving))+1,
+                    ObjectId(serving))
+
+        categories = ["breakfast", "lunch", "dinner", "snack"]
+
+        # Use of wildcard https://stackoverflow.com/questions/55617412/how-to-perform-wildcard-searches-mongodb-in-python-with-pymongo
+        serving_options = mongo.db.serving_options.find(
+            {"category": {'$regex': meal["category"]}})
+
+        servings = []
+        daily_intake = mongo.db.daily_intake.find_one()
+
+        intakes = daily_intake[meal["category"]]
+
+        for serving in serving_options:
+            serving["_id"] = str(serving["_id"])
+
+            servings.append(serving)
+
+        return render_template(
+            "edit_meal.html", user=user, categories=categories,
+            meal=meal, intakes=intakes, servings=servings)
+
+    return redirect(url_for("home"))
 
 
 @app.route("/logout")
