@@ -34,9 +34,9 @@ Refer to [Main project file](README.md) for further detail.
 
 4.	As a user, I want to create meal options following the recommendation.
 
-![](# "")
+![Build Meal Page](screenshots/screenshot-user-story-4.png "Build Meal page"")
 
-    - 
+    - As a user, I can navigate to the Build Meal page and add a new personalized meal that are aligned with the guidelines. 
 
 5.	As a user, I want to create a meal plan for the week.
 
@@ -110,11 +110,30 @@ The Developer Tools of Google Chrome (v.##) on desktop was used to verify respon
    | 4.8      | Click on the delete "minus" button of the newly created card. Verify a confirmation prompt is displayed. Click Cancel and verify the serving was not deleted. | Pass        |
    | 4.9      | Click on the  delete "minus" button of the newly created card. Verify a confirmation prompt is displayed. Click Ok and verify the serving is deleted. | Pass        |
 
-   *when the templates were, the cancel functionality was missed in error. The button was then add to the top of both edit and add forms and is not functional.
+   *when the templates were developed, the cancel functionality was missed in error. The button was then add to the top of both edit and add forms and is not functional.
 
-   **the servings route was poping out the ID in error. The line of code was removed from the servings routing and the edit page could identify the correct document.
+   **the servings route was popping out the ID in error. The line of code was removed from the servings routing and the edit page could identify the correct document.
 
-5. 
+5. **Manage Meals:**
+
+   For this testing, a User account is needed. For this test, it is interesting to have the Servings options database populated to check for all meal options.
+
+   | Test No. | Action & expected results                                    | Pass / Fail |
+   | -------- | :----------------------------------------------------------- | :---------- |
+   | 5.1      | Navigate to Log In / Register and login using the credentials created in step 2.2. From the navigation bar, click in Build Meal and verify the Build Meal page loads. | Pass        |
+   | 5.2      | Click on the cancel "times" button and verify the Meal page is displayed once more without any changes. | Pass        |
+   | 5.3      | Scroll until the last Meal (if any) displayed and click the add "plus" button. Verify the verify the Build Meal page loads. | Pass        |
+   | 5.4      | Add a meal name and select each the Category Breakfast. Verify the Serving Selections are displayed.  Click on each option and verify on the dropdown the correct amount of portions for the meal is available for selection. | Pass        |
+   | 5.5      | Select each of the other Categories available and verify the dropdowns update accordingly. | Pass        |
+   | 5.6      | Populate each form field and click the Add button. Verify the Profile page is reloaded and the created meal is displayed correctly. | Fail*       |
+   | 5.7      | Click on the edit "pen" button of the newly created card and verify the Edit Meal page is loaded with the content of the meal pre-populated. | Fail**      |
+   | 5.8      | Change one of the fields and click on update. Verify on the Profile page the document is correctly updated. | Pass        |
+   | 5.9      | Click on the delete "minus" button of the newly created card. Verify a confirmation prompt is displayed. Click Cancel and verify the Meal was not deleted. | Pass        |
+   | 5.10     | Click on the  delete "minus" button of the newly created card. Verify a confirmation prompt is displayed. Click Ok and verify the Meal is deleted. | Pass        |
+
+   *the building of servings of the profile page was not being update for each built meal and all meals where showing the same portions. To correct this, the servings_selected on the profile route was update to a dictionary using each built_meal name as key.
+
+   **as duplicated selected servings were condensed to unique values when adding the meal, they were not showing correctly on the Edit Meal page. To correct this, the duplicated servings are extended on python to match the amount of options correctly.
 
 6. 
 
@@ -123,4 +142,6 @@ The Developer Tools of Google Chrome (v.##) on desktop was used to verify respon
 
    ### Known issues
 
-   
+   If a serving that is referenced by one or more of the built meals is deleted from the database, there will be an error loading the profile page.
+   At the moment, to avoid the error a message is displayed to the user asking them to contact the administrator.
+   It would be interesting to either have an automated warning to administrator or a defensive code to prevent the deletion if the serving is referenced.

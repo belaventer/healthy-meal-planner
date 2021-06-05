@@ -70,7 +70,7 @@ The help section will be a single continuous page that opens on a new tab with a
 | users                        | username: String<br />password: String (hashed)<br />admin: Boolean |
 | daily_intake* (admin only)   | total_calories: Int32<br />breakfast {<br />    protein: Int32,<br />    grain: Int32,<br />    fruit: Int32,<br />    fat: Int32}<br />lunch{<br />    protein: Int32,<br />    grain: Int32,<br />    vegetables: Int32,<br />    fruit: Int32,<br />    fat: Int32}<br />dinner{<br />    protein: Int32,<br />    grain: Int32,<br />    vegetables: Int32,<br />    fat: Int32}<br />snack{<br />    protein: Int32,<br />    carbohydrate: Int32} |
 | serving_options (admin only) | category: String<br />ingredient: String<br />quantity: Double<br />engineering_unit: String |
-| built_meals                  | meal_name: String<br />created_by: String<br />servings_selected: Array of ObjectIDs<br />servings_quantities: Array of Int32 |
+| built_meals                  | meal_name: String<br />category: String<br />created_by: String<br />servings_selected: Array of ObjectIDs<br />servings_quantities{<br />    serving_selected_id: Int32} |
 | build_plans                  | plan_start_date: Date<br />plan_end_date: Date<br />create_by: String<br />meals_selected: List String<br />groceries_list: List String |
 
 *This collection is part of the future scope.
@@ -78,6 +78,8 @@ The help section will be a single continuous page that opens on a new tab with a
 ### Skeleton
 
 - [Layout](wireframes/healthy-meal-planner-skeleton.jpg)
+
+  Deviation from Layout: Instead of using a carousel for selecting the Serving Options, a dropdown for each category is available instead.
 
 ### Surface
 
@@ -109,10 +111,13 @@ The default typography of Materialize will be used throughout.
 
 **Servings Page**: page exclusive for administrator users to display the serving options available on the database.
 
+**Built Meal Page**: page used to add a new personalized meal on the database following the guidelines recommendation. 
+
 ### Existing Features
 
 - **Navigation Bar:** The navigation bar is present at the top and collapses to a side bar for mobile view. The options present on the navigation bar, are conditional to the amount of credentials of the session.
 - **Manage Servings:** From the Servings page, the administrator can add, update or delete serving options available on the database.
+- **Manage Meals:** From the Profile page, the user can add, update or deleted personalized meals on the database.
 
 ### Features left to implement
 
@@ -212,11 +217,15 @@ Logo was created using [Canva](https://www.canva.com/) and edit with [Clip Studi
 
 Favicon added as per ["Add A Favicon to A Website in HTML | Learn HTML and CSS | HTML Tutorial | HTML for Beginners"](https://www.youtube.com/watch?v=kEf1xSwX5D8) by Dani Krossing
 
-Register / Login and Logout functionality taken from the Task Manager Mini Project of [Code Institute](https://codeinstitute.net/) LMS.
+Register / Login, Logout and Select Validation functionalities taken from the Task Manager Mini Project of [Code Institute](https://codeinstitute.net/) LMS.
 
 Use of category for flashing messages explanation found in [Teclado Blog](https://blog.teclado.com/flashing-messages-with-flask/).
 
 Example on how to use AJAX to connect JavaScript and Python found in [Stack Overflow](https://stackoverflow.com/questions/13808187/how-can-i-call-a-specific-function-method-in-a-python-script-from-javascriptjqu)
+
+How to append in Jinja solution found in [Stack Overflow](https://stackoverflow.com/questions/49619445/how-to-append-to-a-list-in-jinja2-for-ansible )
+
+Use of wildcard to search MongDB found in [Stack Overflow](https://stackoverflow.com/questions/55617412/how-to-perform-wildcard-searches-mongodb-in-python-with-pymongo)
 
 ### Acknowledgment
 
