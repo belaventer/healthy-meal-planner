@@ -29,7 +29,8 @@
                         <p><strong>{{ meal.meal_name }}</strong></p>
                         <a class="btn-floating btn-small waves-effect waves-light blue-grey lighten-5
                             right tooltipped" data-position="right" data-tooltip="Delete meal">
-                            <i class="fas fa-minus blue-grey-text"></i>
+                            <i class="fas fa-minus blue-grey-text"  data-id="{{ meal._id }}"
+                                data-collection="built_meals"></i>
                         </a>
                         <ul>
                             {% for serving in servings_selected[meal.meal_name] %}

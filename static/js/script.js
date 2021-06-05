@@ -50,14 +50,14 @@
 
     // AJAX use example from: https://stackoverflow.com/questions/13808187/how-can-i-call-a-specific-function-method-in-a-python-script-from-javascriptjqu
     $('a i.fa-minus').click(function () {
-        if (window.confirm("The servign will be deleted. Do you want to proceed?")) {
+        if (window.confirm("The item will be deleted. Do you want to proceed?")) {
             $.ajax({
-                url: "/delete_serving/" + $(this).attr('data-id'),
+                url: "/delete_item/" + $(this).attr('data-collection') + "/" + $(this).attr('data-id'),
                 type: "get",
                 success: function(){
                     location.reload();
                 }
-                });                
+            });                
         }
     });
 
@@ -127,7 +127,7 @@
                 $('select').formSelect();
                 validateMaterializeSelect();
             }
-            });
+        });
     });
 
     // Custom validation taken from Code Instute Task Manager LMS

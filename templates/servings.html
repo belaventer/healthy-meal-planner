@@ -20,7 +20,8 @@
                     <div class="card-panel blue-grey lighten-1 white-text fixed-height">
                         <a class="btn-floating btn-small waves-effect waves-light blue-grey lighten-5
                             right tooltipped" data-position="right" data-tooltip="Delete serving">
-                            <i class="fas fa-minus blue-grey-text"  data-id="{{ serving._id }}"></i>
+                            <i class="fas fa-minus blue-grey-text" data-id="{{ serving._id }}"
+                                data-collection="serving_options"></i>
                         </a>
                         <a href="{{ url_for('edit_serving', serving_id=serving._id) }}" class="btn-floating btn-small waves-effect waves-light blue-grey lighten-5
                             right tooltipped" data-position="right" data-tooltip="Edit serving">

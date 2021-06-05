@@ -100,11 +100,15 @@ def profile(username):
             serving_option = mongo.db.serving_options.find_one(
                 {"_id": ObjectId(serving)})
 
-            list_options.append("{} {} {}".format(
-                serving_option["quantity"] *
-                built_meal["servings_quantities"][str(serving)],
-                serving_option["engineering_unit"],
-                serving_option["ingredient"]))
+            if serving_option:
+                list_options.append("{} {} {}".format(
+                    serving_option["quantity"] *
+                    built_meal["servings_quantities"][str(serving)],
+                    serving_option["engineering_unit"],
+                    serving_option["ingredient"]))
+            else:
+                list_options.append(
+                    "Serving not found. Please contact administrator")
 
         servings_selected.update({built_meal["meal_name"]: list_options})
 
@@ -214,23 +218,28 @@ def edit_serving(serving_id):
     return redirect(url_for("home"))
 
 
-@app.route("/delete_serving/<serving_id>")
-def delete_serving(serving_id):
+@app.route("/delete_item/<collection>/<item_id>")
+def delete_item(collection, item_id):
     if "user" in session:
         user = mongo.db.users.find_one(
             {"username": session["user"]})
 
-        if not user["admin"]:
+        if collection == "serving_options" and not user["admin"]:
             return redirect(url_for("home"))
 
-        else:
-            mongo.db.serving_options.remove({"_id": ObjectId(serving_id)})
+        elif collection == "serving_options" and user["admin"]:
+            mongo.db.serving_options.remove({"_id": ObjectId(item_id)})
+
             flash("Serving Successfully Deleted", "general")
 
-            serving_options = mongo.db.serving_options.find()
+            return "Success"
 
-            return render_template(
-                "servings.html", user=user, serving_options=serving_options)
+        else:
+            mongo.db.built_meals.remove({"_id": ObjectId(item_id)})
+
+            flash("Meal Successfully Deleted", "general")
+
+            return "Success"
 
     return redirect(url_for("home"))
 
@@ -311,7 +320,8 @@ def edit_meal(meal_id):
 
         categories = ["breakfast", "lunch", "dinner", "snack"]
 
-        # Use of wildcard https://stackoverflow.com/questions/55617412/how-to-perform-wildcard-searches-mongodb-in-python-with-pymongo
+        # Use of wildcard https://stackoverflow.com/questions/55617412/
+        # how-to-perform-wildcard-searches-mongodb-in-python-with-pymongo
         serving_options = mongo.db.serving_options.find(
             {"category": {'$regex': meal["category"]}})
 
