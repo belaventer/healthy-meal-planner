@@ -157,4 +157,54 @@
             }
         });
     }
+
+    $('#week-selector h5').html(weekDays(new Date()))
+        .attr("date-picked", formatDate(new Date()));
+
+    $('#previous-week').click( function() {
+            var date = new Date($('#week-selector h5').attr("date-picked"));
+
+            $('#week-selector h5').html(weekDays(new Date(date - 7*24*60*60*1000)))
+                .attr("date-picked", formatDate(new Date(date - 7*24*60*60*1000)));
+        }
+    );
+
+    $('#next-week').click( function() {
+            var date = new Date($('#week-selector h5').attr("date-picked"));
+            var nextDate = new Date();
+
+            nextDate = nextDate.setTime(date.getTime() + 7*24*3600*1000);
+
+            $('#week-selector h5').html(weekDays(new Date(nextDate)))
+                .attr("date-picked", formatDate(new Date(nextDate)));
+        }
+    );
+
+    function formatDate(date){
+        return new Intl.DateTimeFormat('en-GB', {year:"numeric", month: "short", day: "2-digit"}).format(date)
+    }
+
+    function weekDays(date){
+        var weekStart = new Date(date.getDay() == 0 ? date : date - date.getDay()*24*60*60*1000);
+        var weekEnd = new Date();
+        var week = [
+            "#sunday",
+            "#monday",
+            "#tuesday",
+            "#wednesday",
+            "#thursday",
+            "#friday",
+            "#saturday"
+        ];
+
+        weekEnd = weekEnd.setTime(weekStart.getTime() + 6*24*3600*1000);
+
+        for (var i = 0; i <= week.length; i++){
+            var start = new Date();
+
+            $(week[i]).html(formatDate(start.setTime(weekStart.getTime() + i*24*3600*1000)));
+        }        
+
+        return `${formatDate(weekStart)} to ${formatDate(weekEnd)}`
+    }
 });

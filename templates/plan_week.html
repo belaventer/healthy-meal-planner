@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="row">
+        <h4 class="col s12"><i class="far fa-calendar-alt"></i> Plan your week:</h4>
+    </div>
+
+    <div class="row white-text">
+        <div class="col s2 offset-s1 right-align">
+            <p class="btn-floating btn-small waves-effect waves-ligh">
+                <i class="fas fa-arrow-left blue-grey lighten-1" id="previous-week"></i>
+            </p>
+        </div>
+        <div class="col s6 center-align" id="week-selector">
+            <h5 class="blue-grey-text"></h5>
+        </div>
+        <div class="col s2 left-align">
+            <p class="btn-floating btn-small waves-effect waves-ligh">
+                <i class="fas fa-arrow-right blue-grey lighten-1" id="next-week"></i>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s6 m4 card small">
+            <h5 class="blue-grey-text" id="sunday"></h5>
+        </div>
+        <div class="col s6 m4 card small">
+            <h5 class="blue-grey-text" id="monday"></h5>
+        </div>
+        <div class="col s6 m4 card small">
+            <h5 class="blue-grey-text" id="tuesday"></h5>
+        </div>
+        <div class="col s6 m4 card small">
+            <h5 class="blue-grey-text" id="wednesday"></h5>
+        </div>
+        <div class="col s6 m4 card small">
+            <h5 class="blue-grey-text" id="thursday"></h5>
+        </div>
+        <div class="col s6 m4 card small">
+            <h5 class="blue-grey-text" id="friday"></h5>
+        </div>
+        <div class="col s6 m4 offset-s3 offset-m4 card small">
+            <h5 class="blue-grey-text" id="saturday"></h5>
+        </div>
+    </div>
+
+    <!-- {% if built_meals.count() == 0 %}
+
+        <div class="row">
+            <h5 class="col s12 center-align"> No meals created yet. Go to the Built Meal page to start.</h5>
+        </div>
+
+    {% else %}
+
+        <div class="row">
+            {% for meal in built_meals %}
+
+                <div class="col s6 m3">
+                    <div class="card-panel blue-grey lighten-1 white-text">
+                        <p><strong>{{ meal.meal_name }}</strong></p>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+         -->
+    </div>
+
+{% endblock %}

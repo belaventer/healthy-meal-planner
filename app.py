@@ -342,6 +342,21 @@ def edit_meal(meal_id):
     return redirect(url_for("home"))
 
 
+@app.route("/plan_week")
+def plan_week():
+    user = mongo.db.users.find_one(
+        {"username": session["user"]})
+
+    built_meals = mongo.db.built_meals.find(
+        {"created_by": session["user"]})
+
+    if session["user"]:
+        return render_template(
+            "plan_week.html", user=user, built_meals=built_meals)
+
+    return redirect(url_for("home"))
+
+
 @app.route("/logout")
 def logout():
     # remove user from session cookie
