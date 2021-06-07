@@ -335,6 +335,34 @@ def edit_meal(meal_id):
 
             servings.append(serving)
 
+        if request.method == "POST":
+            servings_selected = []
+            servings_quantities = {}
+            for input, value in request.form.to_dict().items():
+                if (input != "meal_name"
+                        and input != "meal_category"):
+                    if (value not in servings_quantities.keys()):
+                        servings_quantities[value] = 1
+                    else:
+                        servings_quantities[value] += 1
+
+                    if (ObjectId(value) not in servings_selected):
+                        servings_selected.append(ObjectId(value))
+
+            updated_meal = {
+                "meal_name": request.form.get("meal_name"),
+                "category": request.form.get("category"),
+                "created_by": session["user"],
+                "servings_selected": servings_selected,
+                "servings_quantities": servings_quantities
+            }
+
+            mongo.db.built_meals.update(
+                {"_id": ObjectId(meal_id)}, updated_meal)
+            flash("Meal Successfully Updated", "general")
+
+            return redirect(url_for("profile", username=session["user"]))
+
         return render_template(
             "edit_meal.html", user=user, categories=categories,
             meal=meal, intakes=intakes, servings=servings)

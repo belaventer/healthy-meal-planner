@@ -13,7 +13,7 @@
             <h4 class="col s12 section blue-grey-text text-darken-1">Edit Meal</h4>
         </div>
 
-        <form class="row" method="" action="{{ url_for('edit_meal', meal_id=meal._id) }}">
+        <form class="row" method="POST" action="{{ url_for('edit_meal', meal_id=meal._id) }}">
             <div class="col s12 m4">
                 <div class="row">
                     <div class="input-field">
