@@ -268,7 +268,7 @@ def add_meal():
 
             meal = {
                 "meal_name": request.form.get("meal_name"),
-                "category": request.form.get("category"),
+                "category": request.form.get("meal_category"),
                 "created_by": session["user"],
                 "servings_selected": servings_selected,
                 "servings_quantities": servings_quantities
@@ -351,7 +351,7 @@ def edit_meal(meal_id):
 
             updated_meal = {
                 "meal_name": request.form.get("meal_name"),
-                "category": request.form.get("category"),
+                "category": request.form.get("meal_category"),
                 "created_by": session["user"],
                 "servings_selected": servings_selected,
                 "servings_quantities": servings_quantities

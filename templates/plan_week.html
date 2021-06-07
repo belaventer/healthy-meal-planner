@@ -22,50 +22,67 @@
     </div>
 
     <div class="row">
-        <div class="col s6 m4 card small">
-            <h5 class="blue-grey-text" id="sunday"></h5>
-        </div>
-        <div class="col s6 m4 card small">
+        <a class="col s6 m4 card small waves-effect waves-light btn modal-trigger white" href="#modal1">
+            <h5 class="blue-grey-text"  id="sunday"></h5>
+        </a>
+        <a class="col s6 m4 card small waves-effect waves-light btn modal-trigger white" href="#modal1">
             <h5 class="blue-grey-text" id="monday"></h5>
-        </div>
-        <div class="col s6 m4 card small">
+        </a>
+        <a class="col s6 m4 card small waves-effect waves-light btn modal-trigger white" href="#modal1">
             <h5 class="blue-grey-text" id="tuesday"></h5>
-        </div>
-        <div class="col s6 m4 card small">
+        </a>
+        <a class="col s6 m4 card small waves-effect waves-light btn modal-trigger white" href="#modal1">
             <h5 class="blue-grey-text" id="wednesday"></h5>
-        </div>
-        <div class="col s6 m4 card small">
+        </a>
+        <a class="col s6 m4 card small waves-effect waves-light btn modal-trigger white" href="#modal1">
             <h5 class="blue-grey-text" id="thursday"></h5>
-        </div>
-        <div class="col s6 m4 card small">
+        </a>
+        <a class="col s6 m4 card small waves-effect waves-light btn modal-trigger white" href="#modal1">
             <h5 class="blue-grey-text" id="friday"></h5>
-        </div>
-        <div class="col s6 m4 offset-s3 offset-m4 card small">
+        </a>
+        <a class="col s6 m4 offset-s3 offset-m4 card small waves-effect waves-light btn modal-trigger white" href="#modal1">
             <h5 class="blue-grey-text" id="saturday"></h5>
-        </div>
+        </a>
     </div>
 
-    <!-- {% if built_meals.count() == 0 %}
+    <!-- Modal Structure -->
+    <form id="modal1" class="modal modal-fixed-footer">
+        <div class="modal-content">
+        {# <h4>{{ built_plan.day }}</h4> #}
+            {% if built_meals.count() == 0 %}
 
-        <div class="row">
-            <h5 class="col s12 center-align"> No meals created yet. Go to the Built Meal page to start.</h5>
-        </div>
-
-    {% else %}
-
-        <div class="row">
-            {% for meal in built_meals %}
-
-                <div class="col s6 m3">
-                    <div class="card-panel blue-grey lighten-1 white-text">
-                        <p><strong>{{ meal.meal_name }}</strong></p>
-                    </div>
+                <div class="row">
+                    <h5 class="col s12 center-align"> No meals created yet. Go to the Built Meal page to start.</h5>
                 </div>
 
-            {% endfor %}
+            {% else %}
 
-        {% endif %}
-         -->
+            {% set categories=["breakfast", "lunch", "dinner", "snack"] %}
+            {% for category in categories %}
+            <div class="row">
+                <h4 class="col s12">{{ category|title }}</h4>
+                {% for meal in built_meals if meal.category == category %}
+
+                    <div class="col s6 m3">
+                        <div class="card-panel">
+                            <p><strong>{{ meal.meal_name }}</strong></p>
+                        </div>
+                    </div>
+
+                {% else %}
+                    <p class="col s12">No meals type of {{ category }} created </p>
+                {% endfor %}
+                {% set built_meals = built_meals.rewind() %}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Submit</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+    </form>
+    
     </div>
 
 {% endblock %}

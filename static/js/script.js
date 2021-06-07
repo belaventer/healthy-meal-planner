@@ -203,8 +203,10 @@
             var start = new Date();
 
             $(week[i]).html(formatDate(start.setTime(weekStart.getTime() + i*24*3600*1000)));
-        }        
+        }
 
+        $('.modal').modal();
+        
         return `${formatDate(weekStart)} to ${formatDate(weekEnd)}`
     }
 });

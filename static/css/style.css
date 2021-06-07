@@ -30,6 +30,10 @@ nav .brand-logo {
     min-height: 175px;
 }
 
+.meal-card-height {
+    height: 250px;
+}
+
 .hide-option {
     display: none;
 }
