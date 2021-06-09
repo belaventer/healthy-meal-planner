@@ -58,6 +58,10 @@ nav .brand-logo {
   background: #DDD;
 }
 
+.modal-content .col.s6.m3 {
+    height: 40px;
+}
+
 /* Media queries for responsiviness */
 /* Desktop screens */
 @media only screen and (max-width: 1200px) {

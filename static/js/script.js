@@ -173,9 +173,12 @@
 
     $('#previous-week').click( function() {
             var date = new Date($('#week-selector h5').attr("date-picked"));
+            var prevDate = new Date();
 
-            $('#week-selector h5').html(weekDays(new Date(date - 7*24*60*60*1000)))
-                .attr("date-picked", formatDate(new Date(date - 7*24*60*60*1000)));
+            prevDate = prevDate.setTime(date.getTime() - 7*24*3600*1000);
+
+            $('#week-selector h5').html(weekDays(new Date(prevDate)))
+                .attr("date-picked", formatDate(new Date(prevDate)));
         }
     );
 
@@ -200,14 +203,17 @@
 
         weekEnd = weekEnd.setTime(weekStart.getTime() + 6*24*3600*1000);
 
-        for (var i = 0; i <= week.length; i++){
+        for (var i = 0; i < week.length; i++){
             var start = new Date();
 
             $("#"+week[i]).html(formatDate(start.setTime(weekStart.getTime() + i*24*3600*1000)));
             $("#modal_title_"+week[i]).html(formatDate(start));
             $("#modal-"+week[i]).attr('action',
                 `/submit_plan/${formatDate(weekStart).replace(/ /g,"%20")}%20to%20${formatDate(weekEnd).replace(/ /g,"%20")}/${formatDate(start).replace(/ /g,"%20")}`);
-            $("#"+week[i]).next().html("");
+            $("#"+week[i]).next().html("No plan set for the day!");
+            $("#modal-"+week[i]+" label strong").map(function (){
+                $(this).parent().prev().attr("checked", false);
+            });
             get_week_plan(formatDate(start));
         }
             
@@ -221,10 +227,7 @@
             url: "/get_week_plan/" + week,
             type: "get",
             success: function(data){
-                if (JSON.parse(data) !== null) {
-                    var meals = JSON.parse(data)
-                    var day = new Date(meals["day"]).getDay()
-                        let week = [
+                    let week = [
                         "sunday",
                         "monday",
                         "tuesday",
@@ -233,6 +236,10 @@
                         "friday",
                         "saturday"
                     ];
+
+                if (JSON.parse(data) !== null) {
+                    var meals = JSON.parse(data)
+                    var day = new Date(meals["day"]).getDay()
 
                     var selectedMeals = "";
                     for (meal in meals["selected_meals"]){
