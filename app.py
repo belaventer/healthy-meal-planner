@@ -1,5 +1,6 @@
 import os
 import json
+from datetime import datetime
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -375,14 +376,75 @@ def plan_week():
     user = mongo.db.users.find_one(
         {"username": session["user"]})
 
-    built_meals = mongo.db.built_meals.find(
+    built_meals = list(mongo.db.built_meals.find(
+        {"created_by": session["user"]}))
+
+    week_plans = mongo.db.built_plans.find(
         {"created_by": session["user"]})
 
     if session["user"]:
         return render_template(
-            "plan_week.html", user=user, built_meals=built_meals)
+            "plan_week.html", user=user, built_meals=built_meals,
+            week_plans=week_plans)
 
     return redirect(url_for("home"))
+
+
+@app.route("/submit_plan/<week>/<day>", methods=["GET", "POST"])
+def submit_plan(week, day):
+    if "user" in session:
+        if request.method == "POST":
+            existing_plan = mongo.db.built_plans.find_one(
+                {"day": datetime.strptime(day, '%d %b %Y'),
+                 "week": week,
+                 "created_by": session["user"]})
+
+            selected_meals = []
+            for input, value in request.form.to_dict().items():
+                selected_meals.append(ObjectId(value.split("_")[0]))
+
+            if not existing_plan:
+
+                mongo.db.built_plans.insert_one(
+                    {"day": datetime.strptime(day, '%d %b %Y'),
+                        "week": week,
+                        "created_by": session["user"],
+                        "selected_meals": selected_meals})
+
+                return redirect(url_for("plan_week"))
+
+            mongo.db.built_plans.update(
+                existing_plan,
+                {"day": datetime.strptime(day, '%d %b %Y'),
+                    "week": week,
+                    "created_by": session["user"],
+                    "selected_meals": selected_meals})
+
+        return redirect(url_for("plan_week"))
+
+    return render_template("home.html")
+
+
+@app.route('/get_week_plan/<day>')
+def get_week_plan(day):
+    day_plan = mongo.db.built_plans.find_one(
+                {"day": datetime.strptime(day, '%d %b %Y'),
+                 "created_by": session["user"]})
+
+    if day_plan:
+        day_plan["day"] = datetime.strftime(day_plan["day"], '%d %b %Y')
+        day_plan["_id"] = str(day_plan["_id"])
+
+        day_meals = {}
+        for meal in day_plan["selected_meals"]:
+            meal_name = mongo.db.built_meals.find_one(
+                {"_id": meal})["meal_name"]
+            meal_category = mongo.db.built_meals.find_one(
+                {"_id": meal})["category"]
+            day_meals[meal_category] = meal_name
+
+        day_plan["selected_meals"] = day_meals
+    return json.dumps(day_plan)
 
 
 @app.route("/logout")

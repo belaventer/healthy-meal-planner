@@ -1,3 +1,13 @@
+ let week = [
+            "sunday",
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday"
+        ];
+
  $(document).ready(function(){
     $('.sidenav').sidenav({edge: "right"});
     $('.tooltipped').tooltip();
@@ -187,26 +197,58 @@
     function weekDays(date){
         var weekStart = new Date(date.getDay() == 0 ? date : date - date.getDay()*24*60*60*1000);
         var weekEnd = new Date();
-        var week = [
-            "#sunday",
-            "#monday",
-            "#tuesday",
-            "#wednesday",
-            "#thursday",
-            "#friday",
-            "#saturday"
-        ];
 
         weekEnd = weekEnd.setTime(weekStart.getTime() + 6*24*3600*1000);
 
         for (var i = 0; i <= week.length; i++){
             var start = new Date();
 
-            $(week[i]).html(formatDate(start.setTime(weekStart.getTime() + i*24*3600*1000)));
+            $("#"+week[i]).html(formatDate(start.setTime(weekStart.getTime() + i*24*3600*1000)));
+            $("#modal_title_"+week[i]).html(formatDate(start));
+            $("#modal-"+week[i]).attr('action',
+                `/submit_plan/${formatDate(weekStart).replace(/ /g,"%20")}%20to%20${formatDate(weekEnd).replace(/ /g,"%20")}/${formatDate(start).replace(/ /g,"%20")}`);
+            $("#"+week[i]).next().html("");
+            get_week_plan(formatDate(start));
         }
-
+            
         $('.modal').modal();
-        
+
         return `${formatDate(weekStart)} to ${formatDate(weekEnd)}`
     }
+
+    function get_week_plan (week) {
+        $.ajax({
+            url: "/get_week_plan/" + week,
+            type: "get",
+            success: function(data){
+                if (JSON.parse(data) !== null) {
+                    var meals = JSON.parse(data)
+                    var day = new Date(meals["day"]).getDay()
+                        let week = [
+                        "sunday",
+                        "monday",
+                        "tuesday",
+                        "wednesday",
+                        "thursday",
+                        "friday",
+                        "saturday"
+                    ];
+
+                    var selectedMeals = "";
+                    for (meal in meals["selected_meals"]){
+                        selectedMeals = selectedMeals + `<p class="z-depth-1"><strong>${meal}: </strong>${meals["selected_meals"][meal]}</p>`
+                    }
+                    $("#"+week[day]).next().html(selectedMeals);
+
+                    $("#modal-"+week[day]+" label strong").map(function (){
+                        if (Object.values(meals["selected_meals"]).
+                            includes(this.innerHTML)){
+                                $(this).parent().prev().attr("checked", true);
+                        }
+                    });
+                }
+            }
+        })
+    }
+    
 });

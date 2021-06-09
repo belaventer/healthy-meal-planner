@@ -38,6 +38,26 @@ nav .brand-logo {
     display: none;
 }
 
+/* Turn radio type into button from https://stackoverflow.com/questions/16242980/making-radio-buttons-look-like-buttons-instead */
+.radio-btn + label {
+    border: 1px solid #CCC;
+    cursor: pointer;
+    z-index: 90;
+    background-color: #FFF;
+    color: #000;
+    padding: 10px 2.5px;
+    border-radius: 10px;
+}
+
+.radio-btn:checked + label {
+    background: #78909c;
+    color: #FFF;
+}
+
+.radio-btn + label:hover {
+  background: #DDD;
+}
+
 /* Media queries for responsiviness */
 /* Desktop screens */
 @media only screen and (max-width: 1200px) {
