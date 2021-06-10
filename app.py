@@ -1,6 +1,6 @@
 import os
 import json
-from datetime import datetime
+from datetime import datetime, date
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -83,6 +83,35 @@ def format_serving():
         'engineering_unit': request.form.get('engineering_unit')}
 
     return serving
+
+
+def meal_to_servings(built_meals):
+    """
+    Helper function to set servings of meals in
+    string format.
+    """
+    servings_selected = {}
+
+    # turn servings IDs to strings
+    for built_meal in built_meals:
+        list_options = []
+        for serving in built_meal['servings_selected']:
+            serving_option = mongo.db.serving_options.find_one(
+                {'_id': ObjectId(serving)})
+
+            if serving_option:
+                list_options.append('{} {} {}'.format(
+                    serving_option['quantity'] *
+                    built_meal['servings_quantities'][str(serving)],
+                    serving_option['engineering_unit'],
+                    serving_option['ingredient']))
+            else:
+                list_options.append(
+                    'Serving not found. Please contact administrator')
+
+        servings_selected.update({built_meal['meal_name']: list_options})
+
+    return servings_selected
 
 
 @app.route('/')
@@ -171,33 +200,37 @@ def profile(username):
         built_meals = mongo.db.built_meals.find(
             {'created_by': session['user']})
 
-        servings_selected = {}
+        servings_selected = meal_to_servings(built_meals)
 
-        # turn servings IDs to strings
-        for built_meal in built_meals:
-            list_options = []
+        day = datetime.strftime(date.today(), '%d %b %Y')
 
-            for serving in built_meal['servings_selected']:
-                serving_option = mongo.db.serving_options.find_one(
-                    {'_id': ObjectId(serving)})
+        day_plan = mongo.db.built_plans.find_one(
+                {'day': datetime.strptime(day, '%d %b %Y'),
+                 'created_by': session['user']})
 
-                if serving_option:
-                    list_options.append('{} {} {}'.format(
-                        serving_option['quantity'] *
-                        built_meal['servings_quantities'][str(serving)],
-                        serving_option['engineering_unit'],
-                        serving_option['ingredient']))
-                else:
-                    list_options.append(
-                        'Serving not found. Please contact administrator')
+        if day_plan:
+            day_plan['day'] = datetime.strftime(day_plan['day'], '%d %b %Y')
 
-            servings_selected.update({built_meal['meal_name']: list_options})
+            day_meals = {}
+            for meal in day_plan['selected_meals']:
+                meal_name = mongo.db.built_meals.find_one(
+                    {'_id': meal})['meal_name']
+                meal_category = mongo.db.built_meals.find_one(
+                    {'_id': meal})['category']
+                day_meals[meal_category] = meal_name
+
+            day_plan['selected_meals'] = day_meals
+        else:
+            day_plan = {
+                'day': day,
+                'selected_meals':{
+                    'Nothing planned for the day': ""}}
 
         built_meals.rewind()
 
         return render_template(
             'profile.html', user=user, built_meals=built_meals,
-            servings_selected=servings_selected)
+            servings_selected=servings_selected, day_plan=day_plan)
 
     return redirect(url_for('login'))
 
@@ -447,29 +480,32 @@ def submit_plan(week, day):
         if request.method == 'POST':
             existing_plan = mongo.db.built_plans.find_one(
                 {'day': datetime.strptime(day, '%d %b %Y'),
-                 'week': week,
-                 'created_by': session['user']})
+                    'week': week,
+                    'created_by': session['user']})
 
             selected_meals = []
+            built_meals = []
             for input, value in request.form.to_dict().items():
                 selected_meals.append(ObjectId(value.split('_')[0]))
+                built_meals.append(mongo.db.built_meals.find_one(
+                    {'_id': ObjectId(value.split('_')[0])}))
+
+                groceries = meal_to_servings(built_meals)
+
+            plan = {'day': datetime.strptime(day, '%d %b %Y'),
+                    'week': week,
+                    'created_by': session['user'],
+                    'selected_meals': selected_meals,
+                    'groceries': groceries}
 
             # check if day plan exists to either insert or update
             if not existing_plan:
-                mongo.db.built_plans.insert_one(
-                    {'day': datetime.strptime(day, '%d %b %Y'),
-                        'week': week,
-                        'created_by': session['user'],
-                        'selected_meals': selected_meals})
+                mongo.db.built_plans.insert_one(plan)
 
                 return redirect(url_for('plan_week'))
 
             mongo.db.built_plans.update(
-                existing_plan,
-                {'day': datetime.strptime(day, '%d %b %Y'),
-                    'week': week,
-                    'created_by': session['user'],
-                    'selected_meals': selected_meals})
+                existing_plan, plan)
 
         return redirect(url_for('plan_week'))
 
@@ -500,7 +536,8 @@ def get_week_plan(day):
             day_meals[meal_category] = meal_name
 
         day_plan['selected_meals'] = day_meals
-    return json.dumps(day_plan)
+        return json.dumps(day_plan)
+    return False
 
 
 @app.route('/logout')

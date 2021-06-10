@@ -6,6 +6,19 @@
     </div>
 
     <div class="row">
+        <h4 class="col s12 center-align"><i class="far fa-list-alt"></i> Today's Menu :</h4>
+    </div>
+
+    <div class="row center">
+        <div class="col s6 offset-s3 m4  offset-m4 z-depth-1 white">
+            <h5 class="blue-grey-text">{{ day_plan.day }}</h5>
+            {% for meal in day_plan["selected_meals"] %}
+                <p><strong>{{ meal|title }} </strong>{{ day_plan["selected_meals"][meal] }}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="row">
         <h4 class="col s12 m6"><i class="fas fa-utensils"></i> Your Meals:</h4>
     </div>
 
