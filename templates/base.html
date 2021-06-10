@@ -39,7 +39,7 @@
     </nav>
 
     <ul class="sidenav center-align blue-grey-text text-lighten-1" id="mobile-demo">
-        <h5>Healthy Meal Planner</h5>
+        <li><h5>Healthy Meal Planner</h5></li>
         {% if session.user %}
             <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
             <li><a href="{{ url_for('add_meal') }}">Build Meal</a></li>

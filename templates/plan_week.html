@@ -84,3 +84,7 @@
             id="groceries-button" href="#" target="_blank">Get Groceries List</a>
     </div>
 {% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/week_plan.js') }}"></script>
+{% endblock %}

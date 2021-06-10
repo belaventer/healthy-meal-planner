@@ -1,20 +1,10 @@
- let week = [
-            "sunday",
-            "monday",
-            "tuesday",
-            "wednesday",
-            "thursday",
-            "friday",
-            "saturday"
-        ];
-
- $(document).ready(function(){
+$(document).ready(function(){
     $('.sidenav').sidenav({edge: "right"});
     $('.tooltipped').tooltip();
     $('.collapsible').collapsible();
     $('select').formSelect();
 
-    hideOptions($('#category input:checked'))
+    hideOptions($('#category input:checked'));
     $('#category input').click(function () {
         hideOptions($(this));
     });
@@ -22,39 +12,39 @@
     function hideOptions(selected_category)  {
         switch($(selected_category).val()) {
             case "breakfast":
-                    $("#grain").parent().parent().removeClass("hide-option")
-                    $("#vegetables").parent().parent().addClass("hide-option")
-                    $("#fruit").parent().parent().removeClass("hide-option")
-                    $("#fat").parent().parent().removeClass("hide-option")
-                    $("#carbohydrate").parent().parent().addClass("hide-option")
+                    $("#grain").parent().parent().removeClass("hide-option");
+                    $("#vegetables").parent().parent().addClass("hide-option");
+                    $("#fruit").parent().parent().removeClass("hide-option");
+                    $("#fat").parent().parent().removeClass("hide-option");
+                    $("#carbohydrate").parent().parent().addClass("hide-option");
                 break;
             case "lunch":
-                    $("#grain").parent().parent().removeClass("hide-option")
-                    $("#vegetables").parent().parent().removeClass("hide-option")
-                    $("#fruit").parent().parent().removeClass("hide-option")
-                    $("#fat").parent().parent().removeClass("hide-option")
-                    $("#carbohydrate").parent().parent().addClass("hide-option")
+                    $("#grain").parent().parent().removeClass("hide-option");
+                    $("#vegetables").parent().parent().removeClass("hide-option");
+                    $("#fruit").parent().parent().removeClass("hide-option");
+                    $("#fat").parent().parent().removeClass("hide-option");
+                    $("#carbohydrate").parent().parent().addClass("hide-option");
                 break;
             case "dinner":
-                    $("#grain").parent().parent().removeClass("hide-option")
-                    $("#vegetables").parent().parent().removeClass("hide-option")
-                    $("#fruit").parent().parent().addClass("hide-option")
-                    $("#fat").parent().parent().removeClass("hide-option")
-                    $("#carbohydrate").parent().parent().addClass("hide-option")
+                    $("#grain").parent().parent().removeClass("hide-option");
+                    $("#vegetables").parent().parent().removeClass("hide-option");
+                    $("#fruit").parent().parent().addClass("hide-option");
+                    $("#fat").parent().parent().removeClass("hide-option");
+                    $("#carbohydrate").parent().parent().addClass("hide-option");
                 break;
             case "snack":
-                    $("#grain").parent().parent().addClass("hide-option")
-                    $("#vegetables").parent().parent().addClass("hide-option")
-                    $("#fruit").parent().parent().addClass("hide-option")
-                    $("#fat").parent().parent().addClass("hide-option")
-                    $("#carbohydrate").parent().parent().removeClass("hide-option")
+                    $("#grain").parent().parent().addClass("hide-option");
+                    $("#vegetables").parent().parent().addClass("hide-option");
+                    $("#fruit").parent().parent().addClass("hide-option");
+                    $("#fat").parent().parent().addClass("hide-option");
+                    $("#carbohydrate").parent().parent().removeClass("hide-option");
                 break;
             default:
-                    $("#grain").parent().parent().removeClass("hide-option")
-                    $("#vegetables").parent().parent().addClass("hide-option")
-                    $("#fruit").parent().parent().removeClass("hide-option")
-                    $("#fat").parent().parent().removeClass("hide-option")
-                    $("#carbohydrate").parent().parent().addClass("hide-option")
+                    $("#grain").parent().parent().removeClass("hide-option");
+                    $("#vegetables").parent().parent().addClass("hide-option");
+                    $("#fruit").parent().parent().removeClass("hide-option");
+                    $("#fat").parent().parent().removeClass("hide-option");
+                    $("#carbohydrate").parent().parent().addClass("hide-option");
             }
     }
 
@@ -86,9 +76,9 @@
                     "fat": "orange darken-4",
                     "fruit": "blue darken-4",
                     "vegetables": "green darken-4"
-                }
+                };
 
-                for (key in servings[1]) {
+                for (var key in servings[1]) {
                     var list_options = "";
                     var list_servings = "";
 
@@ -101,7 +91,7 @@
                         }
                     }
 
-                    for (var i = 0, l = servings[1][key]; i < l; i++) {
+                    for (i = 0, l = servings[1][key]; i < l; i++) {
                         list_options = list_options +
                             `<div class="input-field">
                                 <select id="${key}_${i + 1}" name="${key}_${i + 1}" class="validate" required>
@@ -131,7 +121,7 @@
 
                 $("#new-content").html(
                     list_categories
-                )
+                );
 
                 $('.collapsible').collapsible();
                 $('select').formSelect();
@@ -167,97 +157,4 @@
             }
         });
     }
-
-    $('#week-selector h5').html(weekDays(new Date()))
-        .attr("date-picked", formatDate(new Date()));
-
-    $('#previous-week').click( function() {
-            var date = new Date($('#week-selector h5').attr("date-picked"));
-            var prevDate = new Date();
-
-            prevDate = prevDate.setTime(date.getTime() - 7*24*3600*1000);
-
-            $('#week-selector h5').html(weekDays(new Date(prevDate)))
-                .attr("date-picked", formatDate(new Date(prevDate)));
-        }
-    );
-
-    $('#next-week').click( function() {
-            var date = new Date($('#week-selector h5').attr("date-picked"));
-            var nextDate = new Date();
-
-            nextDate = nextDate.setTime(date.getTime() + 7*24*3600*1000);
-
-            $('#week-selector h5').html(weekDays(new Date(nextDate)))
-                .attr("date-picked", formatDate(new Date(nextDate)));
-        }
-    );
-
-    function formatDate(date){
-        return new Intl.DateTimeFormat('en-GB', {year:"numeric", month: "short", day: "2-digit"}).format(date)
-    }
-
-    function weekDays(date){
-        var weekStart = new Date(date.getDay() == 0 ? date : date - date.getDay()*24*60*60*1000);
-        var weekEnd = new Date();
-
-        weekEnd = weekEnd.setTime(weekStart.getTime() + 6*24*3600*1000);
-
-        for (var i = 0; i < week.length; i++){
-            var start = new Date();
-
-            $("#"+week[i]).html(formatDate(start.setTime(weekStart.getTime() + i*24*3600*1000)));
-            $("#modal_title_"+week[i]).html(formatDate(start));
-            $("#modal-"+week[i]).attr('action',
-                `/submit_plan/${formatDate(weekStart).replace(/ /g,"%20")}%20to%20${formatDate(weekEnd).replace(/ /g,"%20")}/${formatDate(start).replace(/ /g,"%20")}`);
-            $("#groceries-button").attr('href',
-                `/get_groceries/${formatDate(weekStart).replace(/ /g,"%20")}%20to%20${formatDate(weekEnd).replace(/ /g,"%20")}`);
-            $("#"+week[i]).next().html("No plan set for the day!");
-            $("#modal-"+week[i]+" label strong").map(function (){
-                $(this).parent().prev().attr("checked", false);
-            });
-            get_week_plan(formatDate(start));
-        }
-            
-        $('.modal').modal();
-
-        return `${formatDate(weekStart)} to ${formatDate(weekEnd)}`
-    }
-
-    function get_week_plan (week) {
-        $.ajax({
-            url: "/get_week_plan/" + week,
-            type: "get",
-            success: function(data){
-                    let week = [
-                        "sunday",
-                        "monday",
-                        "tuesday",
-                        "wednesday",
-                        "thursday",
-                        "friday",
-                        "saturday"
-                    ];
-
-                if (JSON.parse(data) !== null) {
-                    var meals = JSON.parse(data)
-                    var day = new Date(meals["day"]).getDay()
-
-                    var selectedMeals = "";
-                    for (meal in meals["selected_meals"]){
-                        selectedMeals = selectedMeals + `<p class="z-depth-1"><strong>${meal}: </strong>${meals["selected_meals"][meal]}</p>`
-                    }
-                    $("#"+week[day]).next().html(selectedMeals);
-
-                    $("#modal-"+week[day]+" label strong").map(function (){
-                        if (Object.values(meals["selected_meals"]).
-                            includes(this.innerHTML)){
-                                $(this).parent().prev().attr("checked", true);
-                        }
-                    });
-                }
-            }
-        })
-    }
-    
 });

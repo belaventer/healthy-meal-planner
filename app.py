@@ -40,8 +40,7 @@ def get_user():
     if 'user' in session:
         return mongo.db.users.find_one(
             {'username': session['user']})
-    else:
-        return False
+    return False
 
 
 def format_meal():
@@ -53,9 +52,9 @@ def format_meal():
     servings_quantities = {}
     # remove duplicated selections
     for input, value in request.form.to_dict().items():
-        if (input != 'meal_name'
-                and input != 'meal_category'
-                and input != 'meal_image'):
+        if (input != 'meal_name' and
+                input != 'meal_category' and
+                input != 'meal_image'):
             if (value not in servings_quantities.keys()):
                 servings_quantities[value] = 1
             else:
