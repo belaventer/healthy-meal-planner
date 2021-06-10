@@ -1,0 +1,19 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon added as per: https://www.youtube.com/watch?v=kEf1xSwX5D8 -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        type="text/css">
+    <title>Groceries List</title>
+</head>
+<body class="center-align">
+    <h2>{{ week }}</h2>
+    <ul>
+        {% for serving in groceries %}
+            <li>{{ serving }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

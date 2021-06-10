@@ -210,6 +210,8 @@
             $("#modal_title_"+week[i]).html(formatDate(start));
             $("#modal-"+week[i]).attr('action',
                 `/submit_plan/${formatDate(weekStart).replace(/ /g,"%20")}%20to%20${formatDate(weekEnd).replace(/ /g,"%20")}/${formatDate(start).replace(/ /g,"%20")}`);
+            $("#groceries-button").attr('href',
+                `/get_groceries/${formatDate(weekStart).replace(/ /g,"%20")}%20to%20${formatDate(weekEnd).replace(/ /g,"%20")}`);
             $("#"+week[i]).next().html("No plan set for the day!");
             $("#modal-"+week[i]+" label strong").map(function (){
                 $(this).parent().prev().attr("checked", false);

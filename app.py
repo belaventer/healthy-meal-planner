@@ -1,5 +1,7 @@
 import os
 import json
+from collections import Counter
+import re
 from datetime import datetime, date
 from flask import (
     Flask, flash, render_template,
@@ -223,7 +225,7 @@ def profile(username):
         else:
             day_plan = {
                 'day': day,
-                'selected_meals':{
+                'selected_meals': {
                     'Nothing planned for the day': ""}}
 
         built_meals.rewind()
@@ -520,7 +522,7 @@ def get_week_plan(day):
     """
     day_plan = mongo.db.built_plans.find_one(
                 {'day': datetime.strptime(day, '%d %b %Y'),
-                 'created_by': session['user']})
+                    'created_by': session['user']})
 
     # Set dates and ObjectId for JSON dump
     if day_plan:
@@ -538,6 +540,36 @@ def get_week_plan(day):
         day_plan['selected_meals'] = day_meals
         return json.dumps(day_plan)
     return False
+
+
+@app.route('/get_groceries/<week>')
+def get_groceries(week):
+    """
+    Function to get all week plans
+    and compile groceries list
+    """
+    week_plan = mongo.db.built_plans.find(
+        {'week': week,
+            'created_by': session['user']})
+
+    groceries = [
+        serving for plan in week_plan
+        for meal in plan['groceries'].values()
+        for serving in meal]
+
+    count = Counter(groceries)
+
+    groceries_list = []
+    # extract floats solution found in
+    # https://stackoverflow.com/questions/4703390/
+    # how-to-extract-a-floating-number-from-a-string
+    for item, value in count.items():
+        groceries_list.append('{} {}'.format(
+            float(re.findall("\d+\.\d+", item)[0])*value,
+            ' '.join(item.split()[1:])))
+
+    return render_template(
+        'groceries.html', week=week, groceries=groceries_list)
 
 
 @app.route('/logout')
