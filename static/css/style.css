@@ -38,6 +38,10 @@ nav .brand-logo {
     display: none;
 }
 
+.card-image {
+    height: 100%;
+}
+
 /* Turn radio type into button from https://stackoverflow.com/questions/16242980/making-radio-buttons-look-like-buttons-instead */
 .radio-btn + label {
     border: 1px solid #CCC;

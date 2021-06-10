@@ -13,7 +13,7 @@
             <h4 class="col s12 section blue-grey-text text-darken-1">Edit Meal</h4>
         </div>
 
-        <form class="row" method="POST" action="{{ url_for('edit_meal', meal_id=meal._id) }}">
+        <form class="row" method="POST" action="{{ url_for('edit_meal', meal_id=meal._id) }}" enctype = "multipart/form-data">
             <div class="col s12 m4">
                 <div class="row">
                     <div class="input-field">
@@ -22,6 +22,15 @@
                             maxlength="50" pattern="^[a-zA-Z0-9 --]{3,50}$" 
                             value="{{ meal.meal_name }}" class="validate" required>
                         <label for="meal_name">Meal Name</label>
+                    </div>
+                </div>
+                <div class="row file-field input-field">
+                    <div class="btn blue-grey darken-1">
+                        <span>Image</span>
+                        <input type="file" name="meal_image">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
                     </div>
                 </div>
                 <div class="row">

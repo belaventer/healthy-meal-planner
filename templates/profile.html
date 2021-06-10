@@ -34,24 +34,36 @@
             {% for meal in built_meals %}
 
                 <div class="col s6 m3">
-                    <div class="card-panel blue-grey lighten-1 white-text meal-card-height">
-                        <a href="{{ url_for('edit_meal', meal_id=meal._id) }}" class="btn-floating btn-small waves-effect waves-light blue-grey lighten-5
-                            right tooltipped" data-position="right" data-tooltip="Edit meal">
+                    <div class="card sticky-action blue-grey lighten-1 white-text small">
+                        {% if meal.meal_image and meal.meal_image != '' %}
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="{{ url_for('static', filename=meal.meal_image)}}">
+                        </div>
+                        {% endif %}
+                        <div class="card-content">
+                            <p class="card-title activator"><strong>{{ meal.meal_name }}</strong></p>
+                        </div>
+                        <div class="card-action">
+                            <a href="{{ url_for('edit_meal', meal_id=meal._id) }}" class="btn-floating btn-small waves-effect waves-light blue-grey lighten-5
+                            right tooltipped" data-position="top" data-tooltip="Edit meal">
                             <i class="fas fa-pen blue-grey-text"></i>
-                        </a>
-                        <p><strong>{{ meal.meal_name }}</strong></p>
-                        <a class="btn-floating btn-small waves-effect waves-light blue-grey lighten-5
-                            right tooltipped" data-position="right" data-tooltip="Delete meal">
-                            <i class="fas fa-minus blue-grey-text"  data-id="{{ meal._id }}"
-                                data-collection="built_meals"></i>
-                        </a>
-                        <ul>
-                            {% for serving in servings_selected[meal.meal_name] %}
+                            </a>
+                            <a class="btn-floating btn-small waves-effect waves-light blue-grey lighten-5
+                                right tooltipped" data-position="top" data-tooltip="Delete meal">
+                                <i class="fas fa-minus blue-grey-text"  data-id="{{ meal._id }}"
+                                    data-collection="built_meals"></i>
+                            </a>
+                        </div>
+                        <div class="card-reveal">
+                            <ul>
+                                {% for serving in servings_selected[meal.meal_name] %}
 
-                                <li>{{ serving }}</li>
+                                    <li>{{ serving }}</li>
 
-                            {% endfor %}
-                        </ul>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
 

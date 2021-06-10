@@ -9,6 +9,7 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 if os.path.exists('env.py'):
     import env
 
@@ -25,6 +26,7 @@ app = Flask(__name__)
 app.config['MONGO_DBNAME'] = os.environ.get('MONGO_DBNAME')
 app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
 app.secret_key = os.environ.get('SECRET_KEY')
+app.config['UPLOAD_FOLDER'] = './static/images/meals'
 
 
 mongo = PyMongo(app)
@@ -52,7 +54,8 @@ def format_meal():
     # remove duplicated selections
     for input, value in request.form.to_dict().items():
         if (input != 'meal_name'
-                and input != 'meal_category'):
+                and input != 'meal_category'
+                and input != 'meal_image'):
             if (value not in servings_quantities.keys()):
                 servings_quantities[value] = 1
             else:
@@ -61,8 +64,14 @@ def format_meal():
             if (ObjectId(value) not in servings_selected):
                 servings_selected.append(ObjectId(value))
 
+    f = request.files['meal_image']
+    filename = secure_filename(f.filename)
+    f.save(os.path.join(
+        app.config['UPLOAD_FOLDER'], session['user'] + filename))
+
     meal = {
         'meal_name': request.form.get('meal_name'),
+        'meal_image': 'images/meals/' + session['user'] + filename,
         'category': request.form.get('meal_category'),
         'created_by': session['user'],
         'servings_selected': servings_selected,
