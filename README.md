@@ -1,6 +1,6 @@
 # Healthy Meal Planner!
 
-![Healthy Meal Planner Website](/assets/images/website-mockup.jpeg "Healthy Meal Planner Website")
+![Healthy Meal Planner Website](/screenshots/website-mockup.png "Healthy Meal Planner Website")
 
 [Demo of Website](https://healthy-meal-planner.herokuapp.com/).
 
@@ -65,21 +65,31 @@ The help section will be a single continuous page that opens on a new tab with a
 
 #### Database Structure
 
-| Collection Name              | Document's Keys                                              |
-| ---------------------------- | ------------------------------------------------------------ |
-| users                        | username: String<br />password: String (hashed)<br />admin: Boolean |
-| daily_intake* (admin only)   | total_calories: Int32<br />breakfast {<br />    protein: Int32,<br />    grain: Int32,<br />    fruit: Int32,<br />    fat: Int32}<br />lunch{<br />    protein: Int32,<br />    grain: Int32,<br />    vegetables: Int32,<br />    fruit: Int32,<br />    fat: Int32}<br />dinner{<br />    protein: Int32,<br />    grain: Int32,<br />    vegetables: Int32,<br />    fat: Int32}<br />snack{<br />    protein: Int32,<br />    carbohydrate: Int32} |
-| serving_options (admin only) | category: String<br />ingredient: String<br />quantity: Double<br />engineering_unit: String |
-| built_meals                  | meal_name: String<br />category: String<br />created_by: String<br />servings_selected: Array of ObjectIDs<br />servings_quantities{<br />    serving_selected_id: Int32} |
-| build_plans                  | plan_start_date: Date<br />plan_end_date: Date<br />create_by: String<br />meals_selected: List String<br />groceries_list: List String |
+| Collection Name              | Document's Keys                                              | Example                                                      | Function                                                     |
+| ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| users                        | username: String<br />password: String (hashed)<br />admin: Boolean | {"username":"admin",<br />"password":"****",<br />"admin":true} | Documents store the user credentials.<br />It is used for login sessions. |
+| daily_intake* (admin only)   | total_calories: Int32<br />breakfast {<br />    protein: Int32,<br />    grain: Int32,<br />    fruit: Int32,<br />    fat: Int32}<br />lunch{<br />    protein: Int32,<br />    grain: Int32,<br />    vegetables: Int32,<br />    fruit: Int32,<br />    fat: Int32}<br />dinner{<br />    protein: Int32,<br />    grain: Int32,<br />    vegetables: Int32,<br />    fat: Int32}<br />snack{<br />    protein: Int32,<br />    carbohydrate: Int32} | {"total_calories":{"$numberInt":"1800"},<br /><br />"breakfast":{<br />"protein":{"$numberInt":"2"},<br />"grain":{"$numberInt":"2"},<br />"fruit":{"$numberInt":"1"},<br />"fat":{"$numberInt":"1"}},<br /><br />"lunch":{<br />"protein":{"$numberInt":"3"},<br />"grain":{"$numberInt":"3"},<br />"vegetables":{"$numberInt":"2"},<br />"fruit":{"$numberInt":"1"},<br />"fat":{"$numberInt":"2"}},<br /><br />"dinner":{<br />"protein":{"$numberInt":"4"},<br />"grain":{"$numberInt":"2"},<br />"vegetables":{"$numberInt":"2"},<br />"fat":{"$numberInt":"2"}},<br /><br />"snack":{<br />"protein":{"$numberInt":"1"},<br />"carbohydrate":{"$numberInt":"1"}}} | Documents store the amount of servings for each meal type.<br />It is used for building/editing meals. |
+| serving_options (admin only) | category: String<br />ingredient: String<br />quantity: Double<br />engineering_unit: String | {"category":"breakfast_protein",<br />"ingredient":"whole egg",<br />"quantity":{"$numberDouble":"1.0"},<br />"engineering_unit":""} | Documents store the servings available.<br />It is used for building/editing meals.<br />Engineering unit is optional. |
+| built_meals                  | meal_name: String<br />meal_image: String<br />category: String<br />created_by: String<br />servings_selected: Array of ObjectIDs<br />servings_quantities{<br />    serving_selected_id: Int32} | {meal_name":"Eggs and Grapes",<br />"meal_image":"images/meals/admineggs-and-grapes.png",<br />"category":"breakfast",<br />"created_by":"admin",<br />"servings_selected":[{"$oid":"60b4b31e8a8eade5e6c5b5af"},{"$oid":"60b4b3e98a8eade5e6c5b5bb"},{"$oid":"60b4b4718a8eade5e6c5b5c3"},{"$oid":"60be0e4a2735e150452d75f3"}],<br />"servings_quantities":{"60b4b31e8a8eade5e6c5b5af":{"$numberInt":"2"},"60b4b3e98a8eade5e6c5b5bb":{"$numberInt":"2"},"60b4b4718a8eade5e6c5b5c3":{"$numberInt":"1"},"60be0e4a2735e150452d75f3":{"$numberInt":"1"}}} | Documents store the user meal information.<br />It is used for creating a meal plan. |
+| build_plans                  | day: Date<br />week: String<br />create_by: String<br />selected_meals: Array of ObjectIDs<br />groceries: {<br />meal_selected_id: String} | {"day":{"$date":{"$numberLong":"1622937600000"}},<br />"week":"06 Jun 2021 to 12 Jun 2021",<br />"created_by":"admin",<br />"selected_meals":[{"$oid":"60b64add263886db5a736707"},{"$oid":"60be391809136cead192080a"},{"$oid":"60be320a09136cead1920807"}],<br />"groceries":{"Eggs and Grapes":["2.0  whole egg","2.0 slice whole-grain bread","1.0 cup grapes","1.0 tbsp light butter spread"],"Mince Tortilla":["2.0 ounce  lean beef","0.5 cup beans","1.0  whole-wheat tortilla","1.0 cup brown rice","1.0 cup peppers","1.0  small banana","2.0 tsp olive oil"],"Bolognese":["4.0 ounce lean pork","1.0 cup whole-wheat pasta","1.0 cup carrots","2.0 tsp  olive oil"]}} | Documents store the user daily plan information.<br />It is used for generating groceries lists. |
 
 *This collection is part of the future scope.
+
+All documents will have a unique document ID automatically generated by MongoDB.
 
 ### Skeleton
 
 - [Layout](wireframes/healthy-meal-planner-skeleton.jpg)
 
-  Deviation from Layout: Instead of using a carousel for selecting the Serving Options, a dropdown for each category is available instead.
+  #### Deviation from layout
+
+  Instead of using a carousel for selecting the Serving Options, a dropdown for each category is available instead.
+
+  On the profile page, the meals planned for the day are displayed to the user.
+
+  The meals creation allow for user uploaded images and it is displayed on the home page.
+
+  Instead of a PDF, the Groceries list is open on a simple webpage with no design.
 
 ### Surface
 
@@ -88,12 +98,16 @@ The help section will be a single continuous page that opens on a new tab with a
 The website will use grey background colours and the following accents for each serving category.
 
 - Protein / Carbohydrate: red
+
 - Grain: yellow
+
 - Fat: orange
+
 - Fruit: blue
+
 - Vegetables: green
 
- 
+  Note: to better increase accessibility, the background was updated from a light blue grey to plain white. 
 
 #### Typography
 
@@ -107,21 +121,33 @@ The default typography of Materialize will be used throughout.
 
 **Login / Register Page**: form allowing to the user to Register or Log In to application.
 
-**Profile Page**: main page when the user is logged in. It will display all the saved meals from the database of the user in session.
+**Profile Page**: main page when the user is logged in. It will display all the saved meals from the database of the user in session and the meals planned for the current day.
 
 **Servings Page**: page exclusive for administrator users to display the serving options available on the database.
 
-**Built Meal Page**: page used to add a new personalized meal on the database following the guidelines recommendation. 
+**Built Meal Page**: page used to add a new personalized meal on the database following the guidelines recommendation.
+
+**Plan Week Page:** page used to  add or update weekly meal plans.
+
+**Help Page:** page with information on how to use the functionality of the website. Admin exclusive functionality is not included.
+
+**Custom Error Pages:** 404 and 500 errors will have a custom page with the link to the Home page so the user can return without the need to use browser buttons.
 
 ### Existing Features
 
 - **Navigation Bar:** The navigation bar is present at the top and collapses to a side bar for mobile view. The options present on the navigation bar, are conditional to the amount of credentials of the session.
 - **Manage Servings:** From the Servings page, the administrator can add, update or delete serving options available on the database.
 - **Manage Meals:** From the Profile page, the user can add, update or deleted personalized meals on the database.
+- **Manage Plans**: From the Plan Week Page, the user can navigate to the desired week and add or update the menu for each day.
+- **Generate Groceries List:** From the Plan Week Page, the user can get a list of required ingredients for the meals selected for that week.
 
 ### Features left to implement
 
-
+- User weight tracker input
+- Admin able to manage daily intake recommendation options front the front-end
+- Automated Newsletter for Tips and Recipes
+- Defensive program to avoid accidental deletions on the database of referenced documents
+- A method to allow user to recover forgotten password or to change passwords
 
 ## Technologies used
 
@@ -165,17 +191,23 @@ The default typography of Materialize will be used throughout.
 - [Canva](https://www.canva.com/):
   Used for logo development.
 
-- <!--[AutoPrefixer](https://autoprefixer.github.io): -->
-  <!--Used on CSS to ensure functionality across browsers.-->
+- [AutoPrefixer](https://autoprefixer.github.io):
+  Used on CSS to ensure functionality across browsers.
 
 - [jQuery API](https://api.jquery.com/):
-  Used for Materialize components initialization.
+  Used for Materialize components initialization and custom JavaScript code.
 
-- 
+- [Gif Compressor](https://gifcompressor.com/):
+
+  Used to reduce Gif file sizes of help page.
+
+  
 
 ## Testing
 
 Refer to [TESTING.md](TESTING.md) file for testing details.
+
+
 
 ## Deployment
 
@@ -201,7 +233,24 @@ Note: ensure you have a Procfile and requirements.txt indicating language and pa
 
 ### Download project to local IDE:
 
-- 
+- Navigate to [GitHub Repository](https://github.com/belaventer/healthy-meal-planner).
+- Click in Code and choose the local download method:
+  - ZIP file - unpack - run on local IDE
+  - Copy Git URL - open IDE terminal - run git clone
+- A clone of the project is now available on your machine.
+
+Note: ensure you have the configuration variables defined in the env.py file and the you install the requirements for the application.
+
+`- pip install -r requirements.txt`
+
+### Fork project:
+
+- Navigate to [GitHub Repository](https://github.com/belaventer/healthy-meal-planner).
+- Click in Fork. A duplicate repo will be created for your user.
+
+Further information on [GitHub Docs](https://docs.github.com/en).
+
+
 
 ## Credit
 
@@ -212,6 +261,8 @@ This web application was based on the guidelines published by [Live Health Onlin
 ### Media
 
 Logo was created using [Canva](https://www.canva.com/) and edit with [Clip Studio Paint](https://www.clipstudio.net/en/).
+
+No Image Available was created using [Canva](https://www.canva.com/).
 
 ### Code
 
@@ -227,9 +278,17 @@ How to append in Jinja solution found in [Stack Overflow](https://stackoverflow.
 
 Use of wildcard to search MongDB found in [Stack Overflow](https://stackoverflow.com/questions/55617412/how-to-perform-wildcard-searches-mongodb-in-python-with-pymongo)
 
+Uploading files following example of [Flask](https://flask.palletsprojects.com/en/2.0.x/patterns/fileuploads/)
+
+[W3Schools](https://www.w3schools.com/) was referenced throughout the project for HTML, CSS and Python references.
+
+How to remove floats from the string with python solution by [Stack Overflow](https://stackoverflow.com/questions/4703390/how-to-extract-a-floating-number-from-a-string).
+
+[jQuery Documentation](https://api.jquery.com/) was referenced throughout the project for jQuery references.
+
 ### Acknowledgment
 
-
+I would like to thank my mentor Gerry McBride for insightful tips and suggestions. 
 
 ## Disclaimer
 
