@@ -31,11 +31,17 @@
     
     <div class="row">
         {% for day in week %}
-            <a class="col s6 m4 card small waves-effect waves-light btn modal-trigger white" href="#modal-{{ day }}">
-                <h5 class="blue-grey-text" id="{{ day }}"></h5>
-                <div class="blue-grey-text"></div>
-            </a>
-            
+            {% if day != 'saturday' %}
+                <a class="col s6 m4 card medium waves-effect waves-light btn modal-trigger white" href="#modal-{{ day }}">
+                    <h5 class="blue-grey-text" id="{{ day }}"></h5>
+                    <div class="blue-grey-text"></div>
+                </a>
+            {% else %}
+                <a class="col s6 m4 offset-s3 offset-m4 card medium waves-effect waves-light btn modal-trigger white" href="#modal-{{ day }}">
+                    <h5 class="blue-grey-text" id="{{ day }}"></h5>
+                    <div class="blue-grey-text"></div>
+                </a>
+            {% endif %}
             <!-- Modal Structure -->
             <form id="modal-{{ day }}" class="modal modal-fixed-footer" method="POST">
                 <div class="modal-content">

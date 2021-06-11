@@ -15,7 +15,7 @@
     {% endblock %}
     <title>Healthy Meal Planner</title>
 </head>
-<body class="blue-grey lighten-5">
+<body>
 
     <nav>
         <div class="nav-wrapper blue-grey lighten-1">
@@ -71,8 +71,12 @@
     </main>
 
     <footer class="footer-copyright blue-grey lighten-1 white-text small-text">
-        <p class="container">This content is provided for informational purposes only and is not a substitute for professional medical advice, diagnosis or treatment.
-        You should always consult your doctor or other qualified health provider if you have questions or concerns.</p>
+        <p>
+            This content is provided for informational purposes only and is not a substitute for professional medical advice, diagnosis or treatment.
+            You should always consult your doctor or other qualified health provider if you have questions or concerns.
+            <a class="right white-text" href="{{ url_for('help')}}"><i class="far fa-question-circle"></i> Support</a>
+        </p>
+        
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"

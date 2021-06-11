@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon added as per: https://www.youtube.com/watch?v=kEf1xSwX5D8 -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+    <title>Healthy Meal Planner | 500 Page not found</title>
+</head>
+<body class="blue-grey lighten-5">
+
+    <main class="container">
+        <div class="row logo-image">
+            <div class="col s6 offset-s3 m4 offset-m4">
+                <img class="responsive-img"
+                    src="{{ url_for('static', filename='images/logo.png') }}" alt="Knife and fork in front of measuring tape">
+            </div>
+        </div>
+
+        <h1>500!</h1>
+        <p class="flow-text">Oh no! It looks like there was an internal error.</p>
+        <p class="flow-text">Sorry for the incovinence. Please <a href="{{ url_for('home') }}">click here</a> to be redirected to the main page.</p>
+    </main>
+
+</body>
+</html>

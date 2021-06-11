@@ -3,6 +3,7 @@ $(document).ready(function(){
     $('.tooltipped').tooltip();
     $('.collapsible').collapsible();
     $('select').formSelect();
+    $('.scrollspy').scrollSpy();
 
     hideOptions($('#category input:checked'));
     $('#category input').click(function () {

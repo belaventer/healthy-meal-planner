@@ -90,7 +90,7 @@ def format_serving():
             request.form.get('category_type').lower()),
         'ingredient': request.form.get('ingredient').lower(),
         'quantity': float(request.form.get('quantity')),
-        'engineering_unit': request.form.get('engineering_unit')}
+        'engineering_unit': request.form.get('engineering_unit').lower()}
 
     return serving
 
@@ -591,8 +591,35 @@ def logout():
     return redirect(url_for('home'))
 
 
+@app.route('/help')
+def help():
+    """
+    Function to load help page.
+    """
+    user = get_user()
+
+    return render_template('help.html', user=user)
+
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    """
+    Function to load custom 404 page.
+    """
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def internal_error(e):
+    """
+    Function to load custom 500 page.
+    """
+    return render_template('500.html'), 500
+
+
 # Call the Flask application. Note: set debug=False before submission
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)

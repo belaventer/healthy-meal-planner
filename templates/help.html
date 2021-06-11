@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="row logo-image">
+        <div class="col s6 offset-s3 m4 offset-m4">
+            <img class="responsive-img"
+                src="static/images/logo.png" alt="Knife and fork in front of measuring tape">
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col s12 m9 l10">
+            <div id="about" class="section scrollspy">
+                <p>
+                    Healthy Meal Planner is a application to aid diet planning.
+                    It is based on the guidelines for a 1800 calorie intake per day of
+                    <a href="https://livehealthonline.com/wp-content/uploads/2018/05/lho-wmp-1800-calorie-meal-plan.pdf" target="_blank">Live Health Online</a>.
+                </p>
+                <p>Just create an account and you are ready to build healthy balanced meal plans.</p>
+            </div>
+
+            <div id="register" class="section scrollspy">
+                <h4>How to Register</h4>
+                <img class="responsive-img z-depth-2" src="{{ url_for('static', filename='images/register.gif')}}"
+                    alt="Animated GIF of Registering steps">
+                <ol>
+                    <li>From the navigation bar, go to the Login / Register page.</li>
+                    <li>Enter your unique username and password and click Submit.</li>
+                    <li>You will be redirected to your profile page.</li>
+                </ol>
+            </div>
+
+            <div id="login" class="section scrollspy">
+                <h4>How to Login</h4>
+                <img class="responsive-img z-depth-2" src="{{ url_for('static', filename='images/login.gif')}}"
+                    alt="Animated GIF of Login steps">>
+                <ol>
+                    <li>From the navigation bar, go to the Login / Register page.</li>
+                    <li>Enter your username and password and click Log In.</li>
+                    <li>You will be redirected to your profile page.</li>
+                </ol>
+            </div>
+
+            <div id="logout" class="section scrollspy">
+                <h4>How to Logout</h4>
+                <img class="responsive-img z-depth-2" src="{{ url_for('static', filename='images/logout.gif')}}"
+                    alt="Animated GIF of Logout steps">>
+                <ol>
+                    <li>Once logged in, just click in Log Out on the Navigation Bar if you which to leave the session.</li>
+                </ol>
+            </div>
+
+            <div id="create-meal" class="section scrollspy">
+                <h4>How to Create Meals</h4>
+                <img class="responsive-img z-depth-2" src="{{ url_for('static', filename='images/create-meal.gif')}}"
+                    alt="Animated GIF of Creating a Meal steps">>
+                <ol>
+                    <li>From your profile page, click the plus button or from the navigation bar, go to the Build Meal page.</li>
+                    <li>Enter a descriptive name to your meal (example: Pasta).</li>
+                    <li>Select a picture for your meal (optional).</li>
+                    <li>Select the meal category.</li>
+                    <li>Click on each dropdown section.</li>
+                    <li>Select your servings from the selection list.</li>
+                    <li>Clink on the ADD button.</li>
+                </ol>
+            </div>
+
+            <div id="edit-meal" class="section scrollspy">
+                <h4>How to View / Edit Meals</h4>
+                <img class="responsive-img z-depth-2" src="{{ url_for('static', filename='images/edit-meal.gif')}}"
+                    alt="Animated GIF of Viweing and Editing a meal steps">>
+                <ol>
+                    <li>From your profile page, click on the Meal you wish to see the details.</li>
+                    <li>The contents of the meal will show.</li>
+                    <li>To Edit the meal, click on the edit button.</li>
+                    <li>Make your updates.</li>
+                    <li>Click on the UPDATE button.</li>
+                </ol>
+            </div>
+
+            <div id="delete-meal" class="section scrollspy">
+                <h4>How to Delete Meals</h4>
+                <img class="responsive-img z-depth-2" src="{{ url_for('static', filename='images/delete-meal.gif')}}"
+                    alt="Animated GIF of Deleting a Meal steps">>
+                <ol>
+                    <li>From your profile page, click on the minus button of the Meal you wish to delete.</li>
+                    <li>Confirm the deletion.</li>
+                </ol>
+            </div>
+
+            <div id="create-week" class="section scrollspy">
+                <h4>How to Create Weekly Plan</h4>
+                <img class="responsive-img z-depth-2" src="{{ url_for('static', filename='images/create-week.gif')}}"
+                    alt="Animated GIF of Adding a Week Plan steps">>
+                <ol>
+                    <li>From the navigation bar, got to Plan Week page.</li>
+                    <li>Using the arrows selectors, navigate to your desired week.</li>
+                    <li>Click on the day you wish to plan the Menu.</li>
+                    <li>Select the Breakfast, Lunch, Dinner and Snack from your created Meals for the day.</li>
+                    <li>Click on Submit.</li>
+                </ol>
+            </div>
+
+            <div id="groceries-list" class="section scrollspy">
+                <h4>How to Generate Groceries List</h4>
+                <img class="responsive-img z-depth-2" src="{{ url_for('static', filename='images/groceries-list.gif')}}"
+                    alt="Animated GIF of Getting Groceries List steps">>
+                <ol>
+                    <li>From the navigation bar, got to Plan Week page.</li>
+                    <li>Using the arrows selectors, navigate to your desired week.</li>
+                    <li>Click on the Get Groceries button.</li>
+                    <li>The groceries list for the week will be generated on a new tab.</li>
+                </ol>
+            </div>
+        </div>
+        <div class="col hide-on-small-only m3 l2">
+            <ul class="section table-of-contents">
+                <li><a href="#about">About</a></li>
+                <li><a href="#register">How to Register</a></li>
+                <li><a href="#login">How to Login</a></li>
+                <li><a href="#logout">How to Logout</a></li>
+                <li><a href="#create-meal">How to Create Meals</a></li>
+                <li><a href="#edit-meal">How to View / Edit Meals</a></li>
+                <li><a href="#delete-meal">How to Delete Meals</a></li>
+                <li><a href="#create-week">How to Create Weekly Plan</a></li>
+                <li><a href="#groceries-list">How to Generate Groceries List</a></li>
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}
